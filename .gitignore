@@ -70,3 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/Barmetler/Road System/Demo/Scenes/ExampleSystem/New Lighting Settings.lighting
+Assets/Barmetler/Road System/Demo/Scenes/ExampleSystem/LightingData.asset
+Assets/Barmetler/Road System/Demo/Scenes/ExampleSystem/LightingData.asset.meta
