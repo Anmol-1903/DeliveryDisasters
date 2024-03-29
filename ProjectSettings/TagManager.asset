@@ -10,6 +10,7 @@ TagManager:
   - Waypoints
   - House
   - Target
+  - PostProcessVolume
   layers:
   - Default
   - TransparentFX

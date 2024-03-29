@@ -86,7 +86,7 @@ MeshRenderer:
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -115,9 +115,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
-  m_Height: 9
+  m_Height: 11.000347
   m_Direction: 1
-  m_Center: {x: 0, y: 4.5, z: -1.02}
+  m_Center: {x: 0, y: 5.5001736, z: -1.02}
 --- !u!21 &2168896
 Material:
   serializedVersion: 8

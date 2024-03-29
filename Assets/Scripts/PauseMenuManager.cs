@@ -16,7 +16,7 @@ public class PauseMenuManager : MonoBehaviour
     GameObject _postProcessing;
     private void Awake()
     {
-        _postProcessing = FindObjectOfType<PostProcessVolume>().gameObject;
+        _postProcessing = GameObject.FindGameObjectWithTag("PostProcessVolume");
         #region Resolution
         _resolutions = Screen.resolutions;
         _resolutionDropdown.ClearOptions();
@@ -39,9 +39,7 @@ public class PauseMenuManager : MonoBehaviour
         ApplyLoadedSettings();
     }
     public void ClosePauseMenu()
-    {
-        UIManager.Instance.isPaused = false;
-        UIManager.Instance._pauseMenu.SetActive(false);
+    { 
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -50,20 +48,16 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void OpenPauseMenu()
     {
-        UIManager.Instance.isPaused = true;
         Time.timeScale = 0f;
     }
     public void PlayResumeAnimation()
     {
-        UIManager.Instance.ResumeGame();
     }
     public void RemovePauseLock()
     {
-        UIManager.Instance.pauseLock = false;
     }
     public void MainMenu()
     {
-        StartCoroutine(UIManager.Instance.LoadingScreen("MainMenu"));
     }
     public void SetQuality(int _quality)
     {

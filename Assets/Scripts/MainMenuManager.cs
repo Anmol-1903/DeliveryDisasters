@@ -12,13 +12,22 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject _customize;
     [SerializeField] Slider Hue, Sat, Bri, Met, Smo;
     Animator _anim;
-    Transform _camPos;
     int _carNumber;
     int _tileNumber;
-    float _customizeCameraOffsetX, _customizeCameraOffsetY;
 
     [SerializeField] Material[] _carMainMaterial;
     [SerializeField] Image[] _bgs;
+
+
+    /*
+     
+     REWRITE THIS ENTIRE CODE WHICH WILL MAKE IT SO THERE'S ONLY ONE CAR ACTIVE IN THE SCENE. THE CAMERA SHOULD STAY FIXED BITCH.
+     
+     */
+
+
+
+
 
     private void Start()
     {
@@ -37,12 +46,6 @@ public class MainMenuManager : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         _carNumber = PlayerPrefs.GetInt("Car", 0);
         _tileNumber = PlayerPrefs.GetInt("Tile", 0);
-        _camPos = Camera.main.transform.parent;
-        _camPos.position = new Vector3(-15 * _carNumber, 0, 5 * _carNumber) + _offset + new Vector3(_customizeCameraOffsetX, 0, 0);
-    }
-    private void Update()
-    {
-        UpdateCameraPos();
     }
     public void NextCar()
     {
@@ -92,10 +95,6 @@ public class MainMenuManager : MonoBehaviour
         }
         PlayerPrefs.SetInt("Tile", _tileNumber);
     }
-    void UpdateCameraPos()
-    {
-        _camPos.position = Vector3.Lerp(_camPos.position, new Vector3(-15 * _carNumber, 0, 5 * _carNumber) + _offset + new Vector3(_customizeCameraOffsetX, _customizeCameraOffsetY, 0), Time.deltaTime);
-    }
     public void LoadLevel()
     {
         StartCoroutine(LoadingScreen("Game"));
@@ -117,43 +116,37 @@ public class MainMenuManager : MonoBehaviour
     public void SettingsMenu()
     {
         _settingsPanel.SetActive(true);
-        UIManager.Instance.isPaused = true;
         Time.timeScale = 0f;
     }
     public void CloseSettingsMenu()
     {
         _settingsPanel.SetActive(false);
-        UIManager.Instance.isPaused = false;
         Time.timeScale = 1f;
     }
     public void OpenCustomizeMenu()
     {
-        _customizeCameraOffsetX = 5f;
-        _customizeCameraOffsetY = 2.5f;
         _customize.SetActive(true);
         _UI.SetActive(false);
     }
     public void CloseCustomizeMenu()
     {
-        _customizeCameraOffsetX = 0;
-        _customizeCameraOffsetY = 0;
         _customize.SetActive(false);
         _UI.SetActive(true);
     }
     float H, S, V, metalic, smoothness;
-    public void SetMaterial()
+    public void SetMaterial()                //  Materials are updated here
     {
         foreach (Material mat in _carMainMaterial)
         {
             mat.color = Color.HSVToRGB(H, S, V);
             mat.SetFloat("_Metallic", metalic);
-            mat.SetFloat("_Glossiness", smoothness);
+            mat.SetFloat("_Smoothness", smoothness);
         }
         foreach(Image bg in _bgs)
         {
             bg.color = Color.HSVToRGB(H, S, V);
         }
-    }                   //  Materials are updated here
+    }                  
     public void HueController(float _val)
     {
         H = _val;

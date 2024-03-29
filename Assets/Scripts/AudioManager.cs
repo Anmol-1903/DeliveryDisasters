@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
     }
     private void Update()
     {
-        if (UIManager.Instance.isPaused || UIManager.Instance.gameOver)
+        if (UIManager.Instance.IsPaused())
         {
             if (_carSource)
                 _carSource.pitch = Mathf.Lerp(_carSource.pitch, 0.5f, Time.unscaledDeltaTime);
@@ -108,21 +108,18 @@ public class AudioManager : MonoBehaviour
         {
             _sfxSource.clip = _crashFx[0];
             _sfxSource.Play();
-            GamepadHaptics.Instance.SetHaptics(.33f);
             Debug.Log("Mild Crash");
         }
         else if (speed >= mildThreshold && speed < moderateThreshold)
         {
             _sfxSource.clip = _crashFx[1];
             _sfxSource.Play(); 
-            GamepadHaptics.Instance.SetHaptics(.67f);
             Debug.Log("Moderate Crash");
         }
         else
         {
             _sfxSource.clip = _crashFx[2];
             _sfxSource.Play();
-            GamepadHaptics.Instance.SetHaptics(1f);
             Debug.Log("Severe Crash");
         }
         Invoke(nameof(ResetVibrations), .2f);

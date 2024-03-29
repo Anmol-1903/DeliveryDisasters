@@ -4,10 +4,7 @@ public class Delivery : MonoBehaviour
     [SerializeField] bool isPackage;
     private void Start()
     {
-        if (!isPackage)
-        {
-            UIManager.Instance.AddTime(Vector3.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position) / 3);
-        }
+        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -24,8 +21,7 @@ public class Delivery : MonoBehaviour
             }
             if (!isPackage)
             {
-                UIManager.Instance.UpdateScore(15);                 //   Time based scoring?
-                AudioManager.Instance.PackageDelivered();
+                AudioManager.Instance?.PackageDelivered();
             }
 
             if(other.GetComponent<PlayerController>()._package)

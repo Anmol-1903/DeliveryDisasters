@@ -19,7 +19,7 @@ public class CarSounds : MonoBehaviour
     }
     void CarEngineSound()
     {
-        if (UIManager.Instance.isPaused || UIManager.Instance.gameOver)
+        if (UIManager.Instance.IsPaused())
             return;
         _currentSpeed = rb.velocity.magnitude;
         _pitchFromCar = rb.velocity.magnitude / 50;

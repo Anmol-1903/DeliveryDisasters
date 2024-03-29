@@ -79,7 +79,7 @@ public class TimeManager : MonoBehaviour
     }
     private void Update()
     {
-        if (!pause && UIManager.Instance.GetTime() > 0)
+        if (!pause)
         {
             UpdateTimeScale();
             UpdateTime();

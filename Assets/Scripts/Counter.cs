@@ -8,9 +8,9 @@ public class Counter : MonoBehaviour
     float t,s;
     private void Update()
     {
-        Increment();
+        //Increment();
     }
-    void Increment()
+    /*void Increment()
     {
                 Debug.Log(s + " " + PlayerPrefs.GetInt("HighScore"));
         if (isScore)
@@ -39,5 +39,5 @@ public class Counter : MonoBehaviour
                 gameObject.GetComponent<TextMeshProUGUI>().text = "in " + ((int)(t / 60f)).ToString("d2") + " : " + ((int)(t % 60f)).ToString("d2");
             }
         }
-    }
+    }*/
 }

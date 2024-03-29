@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,7 +25,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _brakeLights;
 
     [SerializeField] LayerMask groundLayer;
-    [SerializeField] float vibrationThreshold = 20f;
+    [SerializeField] float vibrationThreshold = 0.20f;
+
+    CarController carcontroller;
 
     public GameObject _package;
     public GameObject _boot;
@@ -36,14 +39,112 @@ public class PlayerController : MonoBehaviour
     public bool hasPackage;
     public bool isHeadlightOn;
     private bool isHandbrakeActivated;
+    private bool gamepadConnected = false;
 
     private void Awake()
     {
+        carcontroller = new CarController();
         cinemachineVirtual = FindObjectOfType<CinemachineFreeLook>();
         cinemachineVirtual.Follow = GameObject.FindGameObjectWithTag("Player").transform;
         cinemachineVirtual.LookAt = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
         rb = GetComponent<Rigidbody>();
     }
+    private void OnEnable()
+    {
+        carcontroller.Enable();
+
+        carcontroller.Drive.Vertical.performed += Vertical_performed;
+        carcontroller.Drive.Horizontal.performed += Horizontal_performed;
+        carcontroller.Drive.Handbrake.performed += Handbrake_performed;
+        carcontroller.Drive.Lights.performed += Lights_performed;
+        carcontroller.Drive.Pause.performed += Pause_performed;
+
+        InputSystem.onDeviceChange += CheckForGamepad;
+        //CheckForGamepad();
+
+        carcontroller.Drive.Vertical.canceled += Vertical_canceled;
+        carcontroller.Drive.Horizontal.canceled += Horizontal_canceled;
+        carcontroller.Drive.Handbrake.canceled += Handbrake_canceled;
+    }
+
+    private void CheckForGamepad(InputDevice device, InputDeviceChange change)
+    {
+        gamepadConnected = false;
+
+        foreach (var gamepad in Gamepad.all)
+        {
+            if (gamepad != null)
+            {
+                gamepadConnected = true;
+                // Set vibration to 1 (assuming you have a method to set vibration)
+                ApplyGamepadVibration(1);
+                break;
+            }
+        }
+
+        if (!gamepadConnected)
+        {
+            // No gamepad connected, do something else or log a message
+            Debug.Log("No gamepad connected.");
+        }
+    }
+
+    private void OnDisable()
+    {
+        carcontroller.Disable();
+
+        carcontroller.Drive.Vertical.performed -= Vertical_performed;
+        carcontroller.Drive.Horizontal.performed -= Horizontal_performed;
+        carcontroller.Drive.Handbrake.performed -= Handbrake_performed;
+        carcontroller.Drive.Lights.performed -= Lights_performed;
+        carcontroller.Drive.Pause.performed -= Pause_performed;
+
+        InputSystem.onDeviceChange -= CheckForGamepad;
+
+        carcontroller.Drive.Vertical.canceled -= Vertical_canceled;
+        carcontroller.Drive.Horizontal.canceled -= Horizontal_canceled;
+        carcontroller.Drive.Handbrake.canceled -= Handbrake_canceled;
+    }
+
+    private void Handbrake_canceled(InputAction.CallbackContext obj)
+    {
+        isHandbrakeActivated = false;
+    }
+    private void Pause_performed(InputAction.CallbackContext obj)
+    {
+        UIManager.Instance.Pause();
+    }
+    private void Horizontal_canceled(InputAction.CallbackContext obj)
+    {
+        _horizontal = 0;
+    }
+
+    private void Vertical_canceled(InputAction.CallbackContext obj)
+    {
+        _vertical = 0;
+    }
+
+    private void Lights_performed(InputAction.CallbackContext obj)
+    {
+        isHeadlightOn = !isHeadlightOn;
+        Headlights();
+    }
+
+    private void Handbrake_performed(InputAction.CallbackContext obj)
+    {
+        isHandbrakeActivated = true;
+    }
+
+    private void Horizontal_performed(InputAction.CallbackContext obj)
+    {
+        _horizontal = obj.ReadValue<float>();
+    }
+
+    private void Vertical_performed(InputAction.CallbackContext obj)
+    {
+        _vertical = obj.ReadValue<float>();
+    }
+
     private void Start()
     {
         if (_package != null)
@@ -51,8 +152,6 @@ public class PlayerController : MonoBehaviour
         if (_boot != null)
             _boot.SetActive(true);
         hasPackage = false;
-        isHeadlightOn = false;
-        isHandbrakeActivated = false;
         ApplyGamepadVibration(0f);
     }
     private void Update()
@@ -65,21 +164,10 @@ public class PlayerController : MonoBehaviour
 
         CameraFov();
 
-        if (!UIManager.Instance.gameOver)
+        if (!UIManager.Instance.IsPaused())             //While the game is not paused
         {
             Movement();
-            if (Input.GetButton("Jump"))
-            {
-                Handbrake();
-            }
-            if (Input.GetButtonUp("Jump"))
-            {
-                ReleaseHandbrake();
-            }
-            if (Input.GetButtonDown("Submit"))
-            {
-                Headlights();
-            }
+            Handbrake();
         }
     }
     void CameraFov()
@@ -89,7 +177,7 @@ public class PlayerController : MonoBehaviour
     }
     void Handbrake()
     {
-        if (!isHandbrakeActivated)
+        if (isHandbrakeActivated)
         {
             // Apply the handbrake force to the rear wheels
             _rl.brakeTorque = Mathf.Infinity;
@@ -99,39 +187,25 @@ public class PlayerController : MonoBehaviour
             _rl.motorTorque = 0f;
             _rr.motorTorque = 0f;
 
-            isHandbrakeActivated = true;
-
             _brakeLights.SetActive(true);
         }
-    }
-    void ReleaseHandbrake()
-    {
-        if (isHandbrakeActivated)
+        else
         {
-            // Apply the handbrake force to the rear wheels
+            // Release the handbrake
             _rl.brakeTorque = 0;
             _rr.brakeTorque = 0;
-
-            isHandbrakeActivated = false;
 
             _brakeLights.SetActive(false);
         }
     }
     void Movement()
     {
-        if (UIManager.Instance.GetTime() <= 0)
-        {
-            UIManager.Instance.GameOverScreen();
-        }
-        _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
         Vector3 carVelocity = rb.velocity;
         float dotProduct = Vector3.Dot(transform.forward, carVelocity);
         // S braking
         if (_vertical < 0 && dotProduct > 0)
         {
             _brakeLights.SetActive(true);
-            isHandbrakeActivated = true;
             _fl.brakeTorque = _brakeTorque;
             _fr.brakeTorque = _brakeTorque;
             _rl.brakeTorque = _brakeTorque;
@@ -141,7 +215,6 @@ public class PlayerController : MonoBehaviour
         else if (_vertical > 0 && dotProduct < 0)
         {
             _brakeLights.SetActive(true);
-            isHandbrakeActivated = true;
             _fl.brakeTorque = _brakeTorque;
             _fr.brakeTorque = _brakeTorque;
             _rl.brakeTorque = _brakeTorque;
@@ -150,7 +223,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             _brakeLights.SetActive(false);
-            isHandbrakeActivated = false;
             _fl.brakeTorque = 0;
             _fr.brakeTorque = 0;
             _rl.brakeTorque = 0;
@@ -185,26 +257,22 @@ public class PlayerController : MonoBehaviour
     }
     void Headlights()
     {
+        _headLights.SetActive(isHeadlightOn);
         if (isHeadlightOn)
         {
-            _headLights.SetActive(false);
-            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", Color.black);
-            _tailLights.GetComponent<Renderer>().materials[0].DisableKeyword("_EMISSION");
-            isHeadlightOn = false;
+            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", _tailLightOnColor);
+            _tailLights.GetComponent<Renderer>().materials[0].EnableKeyword("_EMISSION");
         }
         else
         {
-            _headLights.SetActive(true);
-            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", _tailLightOnColor);
-            _tailLights.GetComponent<Renderer>().materials[0].EnableKeyword("_EMISSION");
-            isHeadlightOn = true;
+            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", Color.black);
+            _tailLights.GetComponent<Renderer>().materials[0].DisableKeyword("_EMISSION");
         }
     }
     private void OnCollisionEnter(Collision other)
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("MAP"))
         {
-            UIManager.Instance.AddTime(-other.relativeVelocity.magnitude);
         }
         if (other.gameObject.layer == LayerMask.NameToLayer("MAP") || other.gameObject.layer == LayerMask.NameToLayer("OBSTACLE"))
         {
@@ -216,17 +284,15 @@ public class PlayerController : MonoBehaviour
     }
     void ControlVibrations()
     {
-        if (AudioManager.Instance._crashing)
-            return;
-
         if (IsWheelOnGroundLayer(_fl, groundLayer) || IsWheelOnGroundLayer(_fr, groundLayer) || IsWheelOnGroundLayer(_rl, groundLayer) || IsWheelOnGroundLayer(_rr, groundLayer))
         {
-            float currentSpeed = rb.velocity.magnitude;
-            if (currentSpeed > vibrationThreshold)
+            Vector3 currentSpeed = rb.velocity;
+            float dotProduct = Vector3.Dot(transform.forward, currentSpeed);
+            if (dotProduct / _maxSpeed > vibrationThreshold)
             {
-                float vibrationStrength = Mathf.InverseLerp(vibrationThreshold, _maxSpeed, currentSpeed);
+                float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
                 Mathf.Clamp(vibrationStrength, 0f, 1f);
-                ApplyGamepadVibration(vibrationStrength / 5);
+                ApplyGamepadVibration(vibrationStrength);
             }
             else
             {
@@ -235,12 +301,13 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            float currentSpeed = rb.velocity.magnitude;
-            if (currentSpeed > vibrationThreshold)
+            Vector3 currentSpeed = rb.velocity;
+            float dotProduct = Vector3.Dot(transform.forward, currentSpeed);
+            if (dotProduct / _maxSpeed > vibrationThreshold)
             {
-                float vibrationStrength = Mathf.InverseLerp(vibrationThreshold, _maxSpeed, currentSpeed);
+                float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
                 Mathf.Clamp(vibrationStrength, 0f, 1f);
-                ApplyGamepadVibration(vibrationStrength / 10);
+                ApplyGamepadVibration(vibrationStrength / 2);
             }
             else
             {
@@ -250,8 +317,7 @@ public class PlayerController : MonoBehaviour
     }
     void ApplyGamepadVibration(float Strength)
     {
-        if(!UIManager.Instance.isPaused)
-            GamepadHaptics.Instance.SetHaptics(Strength);
+        
     }
     bool IsWheelOnGroundLayer(WheelCollider wheel, LayerMask layerMask)
     {
