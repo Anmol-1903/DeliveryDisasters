@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections.Generic;
-using UnityEngine.Rendering.PostProcessing;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown _resolutionDropdown, _qualityDropdown;
@@ -43,25 +42,19 @@ public class PauseMenuManager : MonoBehaviour
         Time.timeScale = 1f;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        RemovePauseLock();
         SaveData();
     }
     public void OpenPauseMenu()
     {
         Time.timeScale = 0f;
     }
-    public void PlayResumeAnimation()
-    {
-    }
-    public void RemovePauseLock()
-    {
-    }
-    public void MainMenu()
-    {
-    }
     public void SetQuality(int _quality)
     {
         QualitySettings.SetQualityLevel(_quality);
+    }
+    public void SetMusic()
+    {
+        AudioManager.Instance.nextMusic();
     }
     public void SetFullScreen(bool _fullScreen)
     {
@@ -108,7 +101,6 @@ public class PauseMenuManager : MonoBehaviour
         GameObject _player = GameObject.FindGameObjectWithTag("Player");
         _player.transform.position += Vector3.up;
         _player.transform.eulerAngles = new Vector3(0, _player.transform.eulerAngles.y, 0);
-        PlayResumeAnimation();
     }
     public void MusicVolume(float _vol)
     {
@@ -117,10 +109,6 @@ public class PauseMenuManager : MonoBehaviour
     public void AudioVolume(float _vol)
     {
         _sfx.SetFloat("SFX", Mathf.Log10(_vol) * 20);
-    }
-    public void ChangeMusic()
-    {
-        AudioManager.Instance.nextMusic();
     }
     public void SetVSync(bool _vsync)
     {

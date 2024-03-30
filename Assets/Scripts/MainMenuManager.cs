@@ -4,52 +4,37 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField] Vector3 _offset;
-    [SerializeField] int _totalCars;
+    [Header("Panels")]
+    [SerializeField] GameObject Info;
+    [SerializeField] GameObject Customize;
+    [SerializeField] GameObject Settings;
+    [Header("Other")]
+    [SerializeField] GameObject[] _Cars;
+    [SerializeField] Transform _spawnLocation;
     [SerializeField] int _totalTiles;
-    [SerializeField] GameObject _settingsPanel;
-    [SerializeField] GameObject _UI;
-    [SerializeField] GameObject _customize;
-    [SerializeField] Slider Hue, Sat, Bri, Met, Smo;
-    Animator _anim;
+
     int _carNumber;
     int _tileNumber;
 
-    [SerializeField] Material[] _carMainMaterial;
-    [SerializeField] Image[] _bgs;
-
-
-    /*
-     
-     REWRITE THIS ENTIRE CODE WHICH WILL MAKE IT SO THERE'S ONLY ONE CAR ACTIVE IN THE SCENE. THE CAMERA SHOULD STAY FIXED BITCH.
-     
-     */
-
-
-
-
-
-    private void Start()
-    {
-        H = PlayerPrefs.GetFloat("HUE", 0);
-        S = PlayerPrefs.GetFloat("SAT", 0);
-        V = PlayerPrefs.GetFloat("BRI", 0);
-        metalic = PlayerPrefs.GetFloat("METALLIC", 0);
-        smoothness = PlayerPrefs.GetFloat("SMOOTHNESS", 0);
-        SetMaterial();
-        SetSliders();
-        Time.timeScale = 1f;
-    }
+    bool s, c;
+    ToggleGroup _toggleGroup;
+    Animator _anim;
 
     private void Awake()
     {
+        _toggleGroup = GetComponentInChildren<ToggleGroup>();
         _anim = GetComponentInChildren<Animator>();
         _carNumber = PlayerPrefs.GetInt("Car", 0);
         _tileNumber = PlayerPrefs.GetInt("Tile", 0);
     }
+    private void Start()
+    {
+        InstantiateNewCar();
+        _anim.SetInteger("Panel", 0);
+    }
     public void NextCar()
     {
-        if (_carNumber < _totalCars - 1)
+        if (_carNumber < _Cars.Length - 1)
         {
             _carNumber++;
         }
@@ -58,6 +43,7 @@ public class MainMenuManager : MonoBehaviour
             _carNumber = 0;
         }
         PlayerPrefs.SetInt("Car", _carNumber);
+        InstantiateNewCar();
     }
     public void PreviousCar()
     {
@@ -67,9 +53,19 @@ public class MainMenuManager : MonoBehaviour
         }
         else
         {
-            _carNumber = _totalCars - 1;
+            _carNumber = _Cars.Length - 1;
         }
         PlayerPrefs.SetInt("Car", _carNumber);
+        InstantiateNewCar();
+    }
+    void InstantiateNewCar()
+    {
+        for(int i = 0; i < _Cars.Length; i++)
+        {
+            _Cars[i].SetActive(false);
+        }
+        _Cars[_carNumber].SetActive(true);
+        _Cars[_carNumber].transform.SetPositionAndRotation(_spawnLocation.position, Quaternion.identity);
     }
     public void NextTile()
     {
@@ -95,6 +91,79 @@ public class MainMenuManager : MonoBehaviour
         }
         PlayerPrefs.SetInt("Tile", _tileNumber);
     }
+    public void OpenSettings(bool on)
+    {
+        if (on)
+        {
+            _anim.SetInteger("Panel", 1);
+            Settings.SetActive(true);
+            Invoke(nameof(DisableCustomize), 1);
+            Invoke(nameof(DisableInfo), 1);
+        }
+    }
+    public void OpenCustomize(bool on)
+    {
+        if (on)
+        {
+            _anim.SetInteger("Panel", 2);
+            Customize.SetActive(true);
+            Invoke(nameof(DisableInfo), 1);
+            Invoke(nameof(DisableSettings), 1);
+        }
+    }
+    void DisableSettings()
+    {
+        Settings.SetActive(false);
+    }
+    void DisableCustomize()
+    {
+        Customize.SetActive(false);
+    }
+    void DisableInfo()
+    {
+        Info.SetActive(false);
+    }
+
+    public void SaveAndExit()
+    {
+        Info.SetActive(true);
+        _anim.SetInteger("Panel", 0);
+        _toggleGroup.SetAllTogglesOff();
+        Invoke(nameof(DisableSettings), 1);
+        Invoke(nameof(DisableCustomize), 1);
+    }
+    /*
+     
+     REWRITE THIS ENTIRE CODE WHICH WILL MAKE IT SO THERE'S ONLY ONE CAR ACTIVE IN THE SCENE. THE CAMERA SHOULD STAY FIXED BITCH.
+     
+     */
+
+
+    /*[SerializeField] Vector3 _offset;
+    [SerializeField] GameObject _settingsPanel;
+    [SerializeField] GameObject _UI;
+    [SerializeField] GameObject _customize;
+    [SerializeField] Slider Hue, Sat, Bri, Met, Smo;
+    Animator _anim;
+
+    [SerializeField] Material[] _carMainMaterial;
+    [SerializeField] Image[] _bgs;
+
+
+
+    private void Start()
+    {
+        H = PlayerPrefs.GetFloat("HUE", 0);
+        S = PlayerPrefs.GetFloat("SAT", 0);
+        V = PlayerPrefs.GetFloat("BRI", 0);
+        metalic = PlayerPrefs.GetFloat("METALLIC", 0);
+        smoothness = PlayerPrefs.GetFloat("SMOOTHNESS", 0);
+        SetMaterial();
+        SetSliders();
+        Time.timeScale = 1f;
+    }
+
+    
     public void LoadLevel()
     {
         StartCoroutine(LoadingScreen("Game"));
@@ -184,5 +253,5 @@ public class MainMenuManager : MonoBehaviour
         Bri.value = PlayerPrefs.GetFloat("BRI", 0);
         Met.value = PlayerPrefs.GetFloat("METALLIC", 0);
         Smo.value = PlayerPrefs.GetFloat("SMOOTHNESS", 0);
-    }
+    }*/
 }
