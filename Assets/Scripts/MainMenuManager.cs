@@ -132,6 +132,18 @@ public class MainMenuManager : MonoBehaviour
         Invoke(nameof(DisableSettings), 1);
         Invoke(nameof(DisableCustomize), 1);
     }
+    public void OpenInsta()
+    {
+        Application.OpenURL("https://www.instagram.com/gamedev_anmol/");
+    }
+    public void OpenItch()
+    {
+        Application.OpenURL("https://anmol-1903.itch.io/");
+    }
+    public void OpenDonation()
+    {
+        Application.OpenURL("https://tr.ee/Rdv7gzw2MQ");
+    }
     /*
      
      REWRITE THIS ENTIRE CODE WHICH WILL MAKE IT SO THERE'S ONLY ONE CAR ACTIVE IN THE SCENE. THE CAMERA SHOULD STAY FIXED BITCH.
