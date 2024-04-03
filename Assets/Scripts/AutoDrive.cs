@@ -19,10 +19,13 @@ public class AutoDrive : MonoBehaviour
             _timer -= Time.deltaTime;
         }
         transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+        transform.position = new Vector3(0, transform.position.y, 45);
+
         _fl.rotationSpeed = _speed;
         _rl.rotationSpeed = _speed;
         _fr.rotationSpeed = _speed;
         _rr.rotationSpeed = _speed;
+
         UpdateWheelPos(_rl, _rlt);
         UpdateWheelPos(_rr, _rrt);
         UpdateWheelPos(_fl, _flt);
