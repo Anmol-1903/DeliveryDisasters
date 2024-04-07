@@ -176,6 +176,6 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void PlaySFX()
     {
-        AudioManager.Instance.PlaySoundEffect();
+        //AudioManager.Instance.PlaySoundEffect();
     }
 }

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,9 @@ public class Customize : MonoBehaviour
     [SerializeField] Slider Ver;
     [SerializeField] Slider Met;
     [SerializeField] Slider Glo;
+
+    [Header("Other")]
+    [SerializeField] TextMeshProUGUI MaterialText;
 
     int selectedMaterial = 0;
     float[] H, S, V, M, G;
@@ -34,6 +38,10 @@ public class Customize : MonoBehaviour
             M[i] = PlayerPrefs.GetFloat("M" + i.ToString(), .5f);
             G[i] = PlayerPrefs.GetFloat("G" + i.ToString(), .5f);
         }
+    }
+    private void Start()
+    {
+        TextUpdater();
     }
     public void SetMaterial()                //  Materials are updated here
     {
@@ -60,11 +68,28 @@ public class Customize : MonoBehaviour
     {
         selectedMaterial = (selectedMaterial + 1) % 3;
         SetSliders();
+        TextUpdater();
+    }
+    void TextUpdater()
+    {
+        switch (selectedMaterial)
+        {
+            case 0:
+                MaterialText.text = "Primary";
+                break;
+            case 1:
+                MaterialText.text = "Secondary";
+                break;
+            case 2:
+                MaterialText.text = "Rims";
+                break;
+        }
     }
     public void PrevThingToPaint()
     {
         selectedMaterial = (selectedMaterial - 1) < 0 ? 2 : selectedMaterial - 1;
         SetSliders();
+        TextUpdater();
     }
     public void HueController(float _val)
     {
