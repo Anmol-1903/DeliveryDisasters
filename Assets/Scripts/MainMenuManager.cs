@@ -20,9 +20,10 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject Info;
     [SerializeField] GameObject Customize;
     [SerializeField] GameObject Settings;
-    [SerializeField] GameObject PlayButton; 
+    [SerializeField] GameObject PlayButton;
 
     [Header("Other")]
+    [SerializeField] GameObject[] _trafficLights;
     [SerializeField] CarInfo[] _Cars;
     [SerializeField] Transform _spawnLocation;
     [SerializeField] int _totalTiles;
@@ -48,6 +49,9 @@ public class MainMenuManager : MonoBehaviour
         _anim.SetInteger("Panel", 0);
         Settings.SetActive(false);
         Customize.SetActive(false);
+        _trafficLights[0].SetActive(false);
+        _trafficLights[1].SetActive(false);
+        _trafficLights[2].SetActive(false);
         UpdateTexts();
         UpdateTerrainTexts();
     }
@@ -118,6 +122,9 @@ public class MainMenuManager : MonoBehaviour
             Settings.SetActive(true);
             Invoke(nameof(DisableCustomize), 1);
             Invoke(nameof(DisableInfo), 1);
+            _trafficLights[0].SetActive(true);
+            _trafficLights[1].SetActive(false);
+            _trafficLights[2].SetActive(false);
         }
     }
     public void OpenCustomize(bool on)
@@ -128,7 +135,9 @@ public class MainMenuManager : MonoBehaviour
             Customize.SetActive(true);
             Invoke(nameof(DisableInfo), 1);
             Invoke(nameof(DisableSettings), 1);
-            //SetSliders();
+            _trafficLights[0].SetActive(false);
+            _trafficLights[1].SetActive(true);
+            _trafficLights[2].SetActive(false);
         }
     }
     void DisableSettings()
@@ -165,70 +174,11 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.OpenURL("https://tr.ee/Rdv7gzw2MQ");
     }
-}
-
-    /*[SerializeField] Vector3 _offset;
-    [SerializeField] GameObject _settingsPanel;
-    [SerializeField] GameObject _UI;
-    [SerializeField] GameObject _customize;
-    [SerializeField] Slider Hue, Sat, Bri, Met, Smo;
-    Animator _anim;
-
-    [SerializeField] Material[] _carMainMaterial;
-    [SerializeField] Image[] _bgs;
-
-
-
-    private void Start()
-    {
-        H = PlayerPrefs.GetFloat("HUE", 0);
-        S = PlayerPrefs.GetFloat("SAT", 0);
-        V = PlayerPrefs.GetFloat("BRI", 0);
-        metalic = PlayerPrefs.GetFloat("METALLIC", 0);
-        smoothness = PlayerPrefs.GetFloat("SMOOTHNESS", 0);
-        SetMaterial();
-        SetSliders();
-        Time.timeScale = 1f;
-    }
-
     
-    public void LoadLevel()
+    public void PlayGame()
     {
-        StartCoroutine(LoadingScreen("Game"));
+        _trafficLights[0].SetActive(false);
+        _trafficLights[1].SetActive(false);
+        _trafficLights[2].SetActive(true);
     }
-    IEnumerator LoadingScreen(string _sceneName)
-    {
-        _anim.SetTrigger("StartLoading");
-        yield return new WaitForSecondsRealtime(1f);
-        AsyncOperation _operation = SceneManager.LoadSceneAsync(_sceneName);
-        while (!_operation.isDone)
-        {
-            yield return null;
-        }
-    }
-    public void Quit()
-    {
-        Application.Quit();
-    }
-    public void SettingsMenu()
-    {
-        _settingsPanel.SetActive(true);
-        Time.timeScale = 0f;
-    }
-    public void CloseSettingsMenu()
-    {
-        _settingsPanel.SetActive(false);
-        Time.timeScale = 1f;
-    }
-    public void OpenCustomizeMenu()
-    {
-        _customize.SetActive(true);
-        _UI.SetActive(false);
-    }
-    public void CloseCustomizeMenu()
-    {
-        _customize.SetActive(false);
-        _UI.SetActive(true);
-    }
-    float H, S, V, metalic, smoothness;
-    */
+}

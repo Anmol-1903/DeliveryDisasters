@@ -23,7 +23,7 @@ public class PauseMenuManager : MonoBehaviour
         int _currentResolutionIndex = 0;
         for (int i = 0; i < _resolutions.Length; i++)
         {
-            string _option = _resolutions[i].width.ToString() + " x " + _resolutions[i].height.ToString() + " -- " + _resolutions[i].refreshRateRatio.ToString() + " hz";
+            string _option = _resolutions[i].width.ToString() + " x " + _resolutions[i].height.ToString();
             _options.Add(_option);
             if (_resolutions[i].width == Screen.currentResolution.width && _resolutions[i].height == Screen.currentResolution.height)
             {
