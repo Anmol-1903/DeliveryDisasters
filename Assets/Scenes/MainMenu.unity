@@ -168,9 +168,9 @@ WheelCollider:
   m_Radius: 0.2
   m_SuspensionSpring:
     spring: 35000
-    damper: 100000
+    damper: 10000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -3238,9 +3238,9 @@ WheelCollider:
   m_Radius: 0.2
   m_SuspensionSpring:
     spring: 35000
-    damper: 100000
+    damper: 10000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -5264,6 +5264,7 @@ GameObject:
   - component: {fileID: 554493899}
   - component: {fileID: 554493898}
   - component: {fileID: 554493897}
+  - component: {fileID: 554493900}
   m_Layer: 5
   m_Name: Prev
   m_TagString: Untagged
@@ -5279,16 +5280,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554493895}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1364861924}
   m_Father: {fileID: 2056880628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -302, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -96}
+  m_SizeDelta: {x: 150, y: 350}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &554493897
 MonoBehaviour:
@@ -5309,7 +5311,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.39215687}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
@@ -5326,9 +5328,9 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
+    m_PressedTrigger: 
+    m_SelectedTrigger: 
+    m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 554493898}
   m_OnClick:
@@ -5366,7 +5368,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1dcde96baf4ee954f9daddcd23e6f1df, type: 3}
+  m_Sprite: {fileID: -1882449388, guid: 9b6f5a8eb7c460b43b98dbb9d8adb2e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5384,6 +5386,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 554493895}
   m_CullTransparentMesh: 1
+--- !u!95 &554493900
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 554493895}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7ab6d90b1e839174689f2b81be05d70b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &560877145
 GameObject:
   m_ObjectHideFlags: 0
@@ -10290,9 +10313,9 @@ WheelCollider:
   m_Radius: 0.2
   m_SuspensionSpring:
     spring: 35000
-    damper: 100000
+    damper: 10000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -14603,6 +14626,138 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360266406}
   m_CullTransparentMesh: 1
+--- !u!1 &1364861923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1364861924}
+  - component: {fileID: 1364861928}
+  - component: {fileID: 1364861927}
+  - component: {fileID: 1364861926}
+  m_Layer: 5
+  m_Name: spray
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1364861924
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364861923}
+  m_LocalRotation: {x: 0, y: 0, z: 0.13052616, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 554493896}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -12, y: 97}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1364861926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364861923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 3
+  m_Colors:
+    m_NormalColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.39215687}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: 
+    m_SelectedTrigger: 
+    m_DisabledTrigger: 
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1364861927}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1706378021}
+        m_TargetAssemblyTypeName: Customize, Assembly-CSharp
+        m_MethodName: PrevThingToPaint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1364861927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364861923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 66c5f61043c1e974e9a5d04701b00d60, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1364861928
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364861923}
+  m_CullTransparentMesh: 1
 --- !u!1 &1371535801
 GameObject:
   m_ObjectHideFlags: 0
@@ -14827,7 +14982,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: aa15c5c229b67fc489dcca37d474a7aa, type: 2}
+  sharedProfile: {fileID: 11400000, guid: d350d0b852cb2854a88c79149db870bc, type: 2}
 --- !u!1 &1398373710
 GameObject:
   m_ObjectHideFlags: 0
@@ -15134,9 +15289,9 @@ WheelCollider:
   m_Radius: 0.2
   m_SuspensionSpring:
     spring: 35000
-    damper: 100000
+    damper: 10000
     targetPosition: 0.5
-  m_SuspensionDistance: 0.3
+  m_SuspensionDistance: 0.1
   m_ForceAppPointDistance: 0
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -15819,6 +15974,7 @@ GameObject:
   - component: {fileID: 1494171141}
   - component: {fileID: 1494171140}
   - component: {fileID: 1494171139}
+  - component: {fileID: 1494171142}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -15837,13 +15993,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1737864980}
   m_Father: {fileID: 2056880628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 302, y: 0}
-  m_SizeDelta: {x: 150, y: 150}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 150, y: 350}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &1494171139
 MonoBehaviour:
@@ -15864,7 +16021,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.39215687}
     m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
@@ -15881,9 +16038,9 @@ MonoBehaviour:
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
+    m_PressedTrigger: 
+    m_SelectedTrigger: 
+    m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1494171140}
   m_OnClick:
@@ -15921,7 +16078,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29188dace92b810429da746decba67b1, type: 3}
+  m_Sprite: {fileID: -1882449388, guid: 9b6f5a8eb7c460b43b98dbb9d8adb2e1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -15939,6 +16096,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1494171137}
   m_CullTransparentMesh: 1
+--- !u!95 &1494171142
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494171137}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9193117ab29dbd24fba3a6c2c5d6364c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1503571817
 GameObject:
   m_ObjectHideFlags: 0
@@ -17693,7 +17871,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1706378018}
   - component: {fileID: 1706378020}
-  - component: {fileID: 1706378019}
   - component: {fileID: 1706378021}
   m_Layer: 5
   m_Name: CarCustomize
@@ -17720,39 +17897,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.671, y: 0.024}
   m_AnchorMax: {x: 0.98552084, y: 0.7903332}
-  m_AnchoredPosition: {x: 660.0001, y: -12.963135}
-  m_SizeDelta: {x: 0, y: 25.925}
+  m_AnchoredPosition: {x: 660, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1706378019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1706378017}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.45882353, g: 0.45882353, b: 0.45882353, a: 0.39215687}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 1
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1706378020
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18755,6 +18902,138 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &1737864979
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1737864980}
+  - component: {fileID: 1737864984}
+  - component: {fileID: 1737864983}
+  - component: {fileID: 1737864982}
+  m_Layer: 5
+  m_Name: spray (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1737864980
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737864979}
+  m_LocalRotation: {x: 0, y: 0, z: -0.13052624, w: 0.9914449}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1494171138}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -15}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 12, y: 97}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1737864982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737864979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 3
+  m_Colors:
+    m_NormalColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 0.39215687}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: 
+    m_SelectedTrigger: 
+    m_DisabledTrigger: 
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1737864983}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1706378021}
+        m_TargetAssemblyTypeName: Customize, Assembly-CSharp
+        m_MethodName: PrevThingToPaint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1737864983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737864979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 66c5f61043c1e974e9a5d04701b00d60, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1737864984
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737864979}
+  m_CullTransparentMesh: 1
 --- !u!1 &1751226302
 GameObject:
   m_ObjectHideFlags: 0
@@ -19510,65 +19789,138 @@ MonoBehaviour:
   _Cars:
   - car: {fileID: 7743879790200868525}
     name: Hauler
-    info: "- Offroad Champion:\r\n  Master of all terrain, unstoppable and relentless.\r\n\r\n-
-      Brake Reluctance:\r\n  Takes its sweet time when it comes to stopping.\r\n\r\n-
-      Horsepower Hero:\r\n  Packs a mighty punch beneath its hood.\r\n\r\n- Pickup
-      Line Pro:\r\n  Renowned for hauling hearts, heavy loads, and even your mom.\r"
+    info: "Offroad Champion:\nMaster of all terrain, unstoppable and relentless.\n\nBrake
+      Reluctance:\nTakes its sweet time when it comes to stopping.\n\nHorsepower
+      Hero:\nPacks a mighty punch beneath its hood.\n\nPickup Line Pro:\nCan pickup
+      heavy loads. even your mom.\r"
   - car: {fileID: 2008238376}
     name: Sentinel
-    info: "- Quick on the Draw:\r\n  Accelerates and brakes with lightning speed.\r\n\r\n-
-      Agile Cruiser:\r\n  Navigates corners with the grace of a ballet dancer.\r\n\r\n-
-      Sticky Situation:\r\n  Can get stuck, but always manages to wriggle free.\r\n\r\n-
-      Contraband Collector:\r\n  This cop car spots trouble but reluctantly handles
-      non-white packages.\r"
+    info: "Quick on the Draw:\nAccelerates and brakes with lightning speed.\n\nAgile
+      Cruiser:\nNavigates corners with the grace of a ballet dancer.\n\nSticky Situation:\nCan
+      get stuck, but always manages to wriggle free.\n\nContraband Collector:\nThis
+      cop car spots trouble but reluctantly handles non-white packages.\r"
   - car: {fileID: 1006127533}
     name: Caravan
-    info: "- Smooth Operator:\r\n  Turns smoothly and handles well.\r\n\r\n- Tendency
-      to Stick:\r\n  Can get stuck in tricky situations.\r\n\r\n- Versatile Transporter:\r\n 
-      Useful for various tasks, including unexpected ones.\r\n\r\n- Kidnap Cruiser:\r\n 
-      Not just for transportation, this van is ideal for discreet operations.\r"
+    info: "Smooth Operator:\nTurns smoothly and handles well.\n\nTendency to Stick:\nCan
+      get stuck in tricky situations.\n\nVersatile Transporter:\nUseful for various
+      tasks, including unexpected ones.\n\nKidnap Cruiser:\nNot just for transportation,
+      this van is ideal for discreet operations.\r"
   - car: {fileID: 1879111153}
     name: Titan
-    info: "- Wheel Titan:\r\n  With its massive wheels, it never gets stuck.\r\n\r\n-
-      Sizeable Cruiser:\r\n  Its enormity ensures a slow but steady journey.\r\n\r\n-
-      Decent Turner:\r\n  Surprisingly nimble for its imposing size.\r\n\r\n- Ikea
-      Adventure Seeker:\r\n  Comes equipped with an allen key for those unexpected
-      assembly challenges.\r"
+    info: "Wheel Titan:\nWith its massive wheels, it never gets stuck.\n\nSizeable
+      Cruiser:\nIts enormity ensures a slow but steady journey.\n\nDecent Turner:\nSurprisingly
+      nimble for its imposing size.\n\nIkea Adventure Seeker:\nComes equipped with
+      an allen key for those unexpected assembly challenges.\r"
   - car: {fileID: 1459636471}
     name: Retrover
-    info: "- Nostalgic Ride:\r\n  Vintage engine with reliable stability and agile
-      turning.\r\n\r\n- Classic Charm:\r\n  Timeless design that stands the test
-      of time.\r\n\r\n- Reliable Stability:\r\n  Solid frame and suspension for smooth
-      rides on rough terrain.\r\n\r\n- Agile Maneuverability:\r\n  Surprisingly nimble
-      for its vintage design, making tight turns a breeze.\r"
+    info: 'Nostalgic Ride:
+
+      Vintage engine with reliable stability and agile
+      turning.
+
+
+      Reliable Stability:
+
+      Solid frame and suspension for
+      smooth rides on rough terrain.
+
+
+      Agile Maneuverability:
+
+      Surprisingly
+      nimble for its vintage design, making tight turns a breeze.
+
+
+      Old AF:
+
+      Timeless
+      design that stands the test of time. Engine might be rusty.'
   - car: {fileID: 688260295}
     name: Voltic
-    info: "- Agile Trike:\r\n  Small, triangular, and surprisingly nimble with lightning-fast
-      turns.\r\n\r\n- Silent Runner:\r\n  Operates quietly, with no noisy engine
-      to disturb the peace.\r\n\r\n- Rapid Acceleration:\r\n  Zooms from zero to
-      sixty in record time, leaving others in the dust.\r\n\n- Tesla's Gem:\r\n 
-      A beloved creation of Tesla, showcasing innovation and speed.\r\n"
+    info: "Agile Trike:\nSmall, triangular, and surprisingly nimble with lightning-fast
+      turns.\n\nSilent Runner:\nOperates quietly, with no noisy engine to disturb
+      the peace.\n\nRapid Acceleration:\nZooms from zero to sixty in record time,
+      leaving others in the dust.\n\nTrigonometric:\nDesigner took 'think outside
+      the box' a bit too literally!\r"
   - car: {fileID: 882153315}
     name: Stallion
-    info: "- Speedster:\r\n  Races with thunderous power and lightning acceleration.\r\n\r\n-
-      Rock-Solid:\r\n  Maintains control at high speeds, offering a smooth ride.\r\n\r\n-
-      Low Profile:\r\n  Sleek stance adds style but can pose challenges on rough
-      terrain.\r\n\r\n- Police Magnet:\r\n  Bold presence and allure often catch
-      law enforcement attention.\r\n"
+    info: 'Speedster:
+
+      Races with thunderous power and lightning acceleration.
+
+
+      Rock-Solid:
+
+      Maintains
+      control at high speeds, offering a smooth ride.
+
+
+      Low Profile:
+
+      Sleek
+      stance adds style but can pose challenges on rough terrain.
+
+
+      Police
+      Magnet:
+
+      Often catches attention. It''s stock officer!!
+
+'
   - car: {fileID: 1751226302}
-    name: Stallion
-    info: "- Speedster:\r\n  Races with thunderous power and lightning acceleration.\r\n\r\n-
-      Rock-Solid:\r\n  Maintains control at high speeds, offering a smooth ride.\r\n\r\n-
-      Low Profile:\r\n  Sleek stance adds style but can pose challenges on rough
-      terrain.\r\n\r\n- Police Magnet:\r\n  Bold presence and allure often catch
-      law enforcement attention.\r\n"
+    name: Creamer
+    info: 'High Horsepower:
+
+      Rumbles with unexpected strength, a relic from
+      a bygone era.
+
+      
+
+      Slow Start:
+
+      Gradual pickup, as if it''s
+      savoring every mile.
+
+      
+
+      Sturdy Suspension:
+
+      Absorbs bumps
+      like a seasoned traveler, despite its weathered exterior.
+
+      
+
+      Dairy
+      Duties:
+
+      Has been chugging along, delivering milk since the cows came
+      home.'
   - car: {fileID: 127424820}
-    name: Stallion
-    info: "- Speedster:\r\n  Races with thunderous power and lightning acceleration.\r\n\r\n-
-      Rock-Solid:\r\n  Maintains control at high speeds, offering a smooth ride.\r\n\r\n-
-      Low Profile:\r\n  Sleek stance adds style but can pose challenges on rough
-      terrain.\r\n\r\n- Police Magnet:\r\n  Bold presence and allure often catch
-      law enforcement attention.\r\n"
+    name: Inferno
+    info: 'Speed Demon:
+
+      Zooms down the road with unmatched velocity.
+
+      
+
+      Rock-Solid
+      Handling:
+
+      Glides through curves and corners like a dream.
+
+      
+
+      Low
+      Clearance:
+
+      Sits close to the ground, risking bottoming out on rough
+      terrain.
+
+
+      Too Aerodynamic:
+
+      Comes equipped with a spoiler bigger
+      than its ego.'
   _spawnLocation: {fileID: 1678165585}
   _totalTiles: 3
   _carName: {fileID: 1832920571}
