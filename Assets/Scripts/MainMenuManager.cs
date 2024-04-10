@@ -160,6 +160,10 @@ public class MainMenuManager : MonoBehaviour
         Invoke(nameof(DisableSettings), 1);
         Invoke(nameof(DisableCustomize), 1);
 
+        _trafficLights[0].SetActive(false);
+        _trafficLights[1].SetActive(false);
+        _trafficLights[2].SetActive(false);
+
         SelectUpdate();
     }
     public void OpenInsta()
@@ -180,5 +184,6 @@ public class MainMenuManager : MonoBehaviour
         _trafficLights[0].SetActive(false);
         _trafficLights[1].SetActive(false);
         _trafficLights[2].SetActive(true);
+        GetComponentInChildren<Animator>().SetTrigger("Start");
     }
 }
