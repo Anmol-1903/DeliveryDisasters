@@ -77,13 +77,8 @@ public class AudioManager : MonoBehaviour
         _bgmSource.clip = _bgm[i];
         _bgmSource.Play();
     }
-    public void nextMusic()
+    public void nextMusic(int i)
     {
-        i++;
-        if(i >= _bgm.Length)
-        {
-            i = 0;
-        }
         _bgmSource.clip = _bgm[i];
         _bgmSource.Play();
         PlayerPrefs.SetInt("BGM", GetMusic());

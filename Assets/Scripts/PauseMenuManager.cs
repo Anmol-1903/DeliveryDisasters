@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown _resolutionDropdown, _qualityDropdown;
-    [SerializeField] Toggle _fullscreenToggle, _postProcessingBool,_vSyncBool,_fpsBool, flipX, flipY;
+    [SerializeField] Toggle _fullscreenToggle, _postProcessingBool,_vSyncBool,_fpsBool;
     [SerializeField] Slider _musicSlider, _sfxSlider, _sensitivitySlider;
     [SerializeField] AudioMixer _music, _sfx;
     Resolution[] _resolutions;
@@ -52,9 +52,9 @@ public class PauseMenuManager : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(_quality);
     }
-    public void SetMusic()
+    public void SetMusic(int _music)
     {
-        AudioManager.Instance.nextMusic();
+        AudioManager.Instance.nextMusic(_music);
     }
     public void SetFullScreen(bool _fullScreen)
     {
@@ -63,24 +63,6 @@ public class PauseMenuManager : MonoBehaviour
     public void SetPostProcessing(bool _pp)
     {
         _postProcessing.SetActive(_pp);
-    }
-    public void FlipX(bool _x)
-    {
-        CinemachineFreeLook freelook = FindObjectOfType<CinemachineFreeLook>();
-        if (freelook)
-        {
-            freelook.m_XAxis.m_InvertInput = _x;
-            flipX.isOn = _x;
-        }
-    }
-    public void FlipY(bool _y)
-    {
-        CinemachineFreeLook freelook = FindObjectOfType<CinemachineFreeLook>();
-        if (freelook)
-        {
-            freelook.m_YAxis.m_InvertInput = _y;
-            flipY.isOn = _y;
-        }
     }
     public void SetResolution(int _resolutionIndex)
     {
@@ -132,11 +114,6 @@ public class PauseMenuManager : MonoBehaviour
         PlayerPrefs.SetInt("PostProcessingBool", (_postProcessingBool.isOn) ? 1 : 0);
         PlayerPrefs.SetInt("VSyncBool", (_vSyncBool.isOn) ? 1 : 0);
         PlayerPrefs.SetInt("FPSBool", (_fpsBool.isOn) ? 1 : 0);
-        if (FindObjectOfType<CinemachineFreeLook>())
-        {
-            PlayerPrefs.SetInt("FlipX", (flipX.isOn) ? 1 : 0);
-            PlayerPrefs.SetInt("FlipY", (flipY.isOn) ? 1 : 0);
-        }
         PlayerPrefs.SetFloat("MusicVolume", _musicSlider.value);
         PlayerPrefs.SetFloat("SFXVolume", _sfxSlider.value);
         if (_sensitivitySlider)
@@ -150,8 +127,6 @@ public class PauseMenuManager : MonoBehaviour
         SetPostProcessing((PlayerPrefs.GetInt("PostProcessingBool", 1) == 0) ? false : true);
         SetVSync((PlayerPrefs.GetInt("VSyncBool", 1) == 0) ? false : true);
         SetFPSCounter((PlayerPrefs.GetInt("FPSBool", 1) == 0) ? false : true);
-        FlipX((PlayerPrefs.GetInt("FlipX", 0) == 0) ? false : true);
-        FlipY((PlayerPrefs.GetInt("FlipY", 0) == 0) ? false : true);
         MusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0.1f));
         AudioVolume(PlayerPrefs.GetFloat("SFXVolume", 0.1f));
         SetSensitivity(PlayerPrefs.GetFloat("SensitivityValue", 3f));
@@ -164,11 +139,6 @@ public class PauseMenuManager : MonoBehaviour
         _postProcessingBool.isOn = (PlayerPrefs.GetInt("PostProcessingBool", 1) == 0) ? false : true;
         _vSyncBool.isOn = (PlayerPrefs.GetInt("VSyncBool", 1) == 0) ? false : true;
         _fpsBool.isOn = (PlayerPrefs.GetInt("FPSBool", 1) == 0) ? false : true;
-        if (FindObjectOfType<CinemachineFreeLook>())
-        {
-            FindObjectOfType<CinemachineFreeLook>().m_XAxis.m_InvertInput = (PlayerPrefs.GetInt("FlipX", 0) == 0) ? false : true;
-            FindObjectOfType<CinemachineFreeLook>().m_YAxis.m_InvertInput = (PlayerPrefs.GetInt("FlipY", 0) == 0) ? false : true;
-        }
         _musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 0.1f);
         _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.1f);
         if(_sensitivitySlider)
