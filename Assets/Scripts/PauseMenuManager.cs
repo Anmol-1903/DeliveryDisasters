@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 public class PauseMenuManager : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown _resolutionDropdown, _qualityDropdown;
@@ -105,6 +106,10 @@ public class PauseMenuManager : MonoBehaviour
         {
             _fpsCounter.SetActive(_on);
         }
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
     public void SaveData()
     {

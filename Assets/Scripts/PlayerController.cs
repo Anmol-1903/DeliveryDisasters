@@ -14,14 +14,12 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float _brakeTorque = 3000f;
 
-    [SerializeField] CinemachineFreeLook cinemachineVirtual;
+    CinemachineFreeLook cinemachineVirtual;
 
     [SerializeField] WheelCollider _fl, _fr, _rl, _rr;
     [SerializeField] Transform _flt, _frt, _rlt, _rrt;
 
     [SerializeField] GameObject _headLights;
-    [SerializeField] GameObject _tailLights;
-    [SerializeField] Color _tailLightOnColor;
     [SerializeField] GameObject _brakeLights;
 
     [SerializeField] LayerMask groundLayer;
@@ -173,7 +171,7 @@ public class PlayerController : MonoBehaviour
     void CameraFov()
     {
         float currentSpeed = rb.velocity.magnitude;
-        cinemachineVirtual.m_Lens.FieldOfView = Mathf.Lerp(_minFOV, _maxFOV, currentSpeed / _maxSpeed);
+        cinemachineVirtual.m_Lens.FieldOfView = Mathf.Lerp(_minFOV, _maxFOV, currentSpeed / _maxSpeed * Time.deltaTime);
     }
     void Handbrake()
     {
@@ -258,16 +256,6 @@ public class PlayerController : MonoBehaviour
     void Headlights()
     {
         _headLights.SetActive(isHeadlightOn);
-        if (isHeadlightOn)
-        {
-            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", _tailLightOnColor);
-            _tailLights.GetComponent<Renderer>().materials[0].EnableKeyword("_EMISSION");
-        }
-        else
-        {
-            _tailLights.GetComponent<Renderer>().materials[0].SetColor("_EmissionColor", Color.black);
-            _tailLights.GetComponent<Renderer>().materials[0].DisableKeyword("_EMISSION");
-        }
     }
     private void OnCollisionEnter(Collision other)
     {
