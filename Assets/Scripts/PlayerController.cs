@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
@@ -14,8 +15,6 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float _brakeTorque = 3000f;
 
-    CinemachineFreeLook cinemachineVirtual;
-
     [SerializeField] WheelCollider _fl, _fr, _rl, _rr;
     [SerializeField] Transform _flt, _frt, _rlt, _rrt;
 
@@ -25,6 +24,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float vibrationThreshold = 0.20f;
 
+    CinemachineFreeLook cinemachineVirtual;
+    [SerializeField] CinemachineBasicMultiChannelPerlin noiseProfile;
+
     CarController carcontroller;
 
     public GameObject _package;
@@ -33,6 +35,7 @@ public class PlayerController : MonoBehaviour
     float _vertical;
 
     Rigidbody rb;
+    float dotProduct;
 
     public bool hasPackage;
     public bool isHeadlightOn;
@@ -45,7 +48,9 @@ public class PlayerController : MonoBehaviour
         cinemachineVirtual = FindObjectOfType<CinemachineFreeLook>();
         cinemachineVirtual.Follow = GameObject.FindGameObjectWithTag("Player").transform;
         cinemachineVirtual.LookAt = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
+        noiseProfile = cinemachineVirtual.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         rb = GetComponent<Rigidbody>();
+
     }
     private void OnEnable()
     {
@@ -172,6 +177,13 @@ public class PlayerController : MonoBehaviour
     {
         float currentSpeed = rb.velocity.magnitude;
         cinemachineVirtual.m_Lens.FieldOfView = Mathf.Lerp(_minFOV, _maxFOV, currentSpeed / _maxSpeed * Time.deltaTime);
+        if (cinemachineVirtual != null)
+        {
+            if (noiseProfile != null)
+            {
+                noiseProfile.m_FrequencyGain = (rb.velocity.magnitude / _maxSpeed * 2.5f) + .5f;
+            }
+        }
     }
     void Handbrake()
     {
@@ -192,14 +204,12 @@ public class PlayerController : MonoBehaviour
             // Release the handbrake
             _rl.brakeTorque = 0;
             _rr.brakeTorque = 0;
-
-            _brakeLights.SetActive(false);
         }
     }
     void Movement()
     {
         Vector3 carVelocity = rb.velocity;
-        float dotProduct = Vector3.Dot(transform.forward, carVelocity);
+        dotProduct = Vector3.Dot(transform.forward, carVelocity);
         // S braking
         if (_vertical < 0 && dotProduct > 0)
         {
@@ -218,7 +228,7 @@ public class PlayerController : MonoBehaviour
             _rl.brakeTorque = _brakeTorque;
             _rr.brakeTorque = _brakeTorque;
         }
-        else
+        else if(!isHandbrakeActivated)
         {
             _brakeLights.SetActive(false);
             _fl.brakeTorque = 0;
@@ -274,8 +284,6 @@ public class PlayerController : MonoBehaviour
     {
         if (IsWheelOnGroundLayer(_fl, groundLayer) || IsWheelOnGroundLayer(_fr, groundLayer) || IsWheelOnGroundLayer(_rl, groundLayer) || IsWheelOnGroundLayer(_rr, groundLayer))
         {
-            Vector3 currentSpeed = rb.velocity;
-            float dotProduct = Vector3.Dot(transform.forward, currentSpeed);
             if (dotProduct / _maxSpeed > vibrationThreshold)
             {
                 float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
@@ -289,8 +297,6 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            Vector3 currentSpeed = rb.velocity;
-            float dotProduct = Vector3.Dot(transform.forward, currentSpeed);
             if (dotProduct / _maxSpeed > vibrationThreshold)
             {
                 float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
