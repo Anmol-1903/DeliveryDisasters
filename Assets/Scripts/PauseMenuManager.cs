@@ -38,17 +38,6 @@ public class PauseMenuManager : MonoBehaviour
         FetchData();
         ApplyLoadedSettings();
     }
-    public void ClosePauseMenu()
-    { 
-        Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-        SaveData();
-    }
-    public void OpenPauseMenu()
-    {
-        Time.timeScale = 0f;
-    }
     public void SetQuality(int _quality)
     {
         QualitySettings.SetQualityLevel(_quality);
@@ -109,6 +98,9 @@ public class PauseMenuManager : MonoBehaviour
     }
     public void MainMenu()
     {
+        Time.timeScale = 1f;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene(0);
     }
     public void SaveData()
@@ -148,9 +140,5 @@ public class PauseMenuManager : MonoBehaviour
         _sfxSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.1f);
         if(_sensitivitySlider)
             _sensitivitySlider.value = PlayerPrefs.GetFloat("SensitivityValue", 3f);
-    }
-    public void PlaySFX()
-    {
-        //AudioManager.Instance.PlaySoundEffect();
     }
 }

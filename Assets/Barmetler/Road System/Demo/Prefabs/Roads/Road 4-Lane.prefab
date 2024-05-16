@@ -86,7 +86,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5069528466591191570}
-  m_Material: {fileID: 13400000, guid: 35ef2f7a54d3c284684839ee4e6c152b, type: 2}
+  m_Material: {fileID: 13400000, guid: 4fe7b81e787557c4c999d52338fa46ac, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -158,4 +158,5 @@ MonoBehaviour:
       isRightHanded: 1
     uvOffset: {x: 0, y: 1}
   autoGenerate: 1
-  SourceMesh: {fileID: -5754084199372789682, guid: fac25352ec8ea32478d961f39f74af2d, type: 3}
+  SourceMesh: {fileID: -5754084199372789682, guid: fac25352ec8ea32478d961f39f74af2d,
+    type: 3}

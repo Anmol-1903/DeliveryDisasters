@@ -200,7 +200,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 33875305}
@@ -1078,7 +1078,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 101160155}
@@ -4356,7 +4356,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 554493898}
@@ -12151,7 +12151,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1494171140}
@@ -12545,7 +12545,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1524703214}
@@ -13162,7 +13162,7 @@ MonoBehaviour:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: 
-    m_SelectedTrigger: 
+    m_SelectedTrigger: Highlighted
     m_DisabledTrigger: 
   m_Interactable: 1
   m_TargetGraphic: {fileID: 1611556186}
@@ -17563,6 +17563,16 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: df8ff6b8ea03667478bea27eec59a88e, type: 2}
+    - target: {fileID: 771835268763566359, guid: c9a08659eb33fe9499f9aa9310263a40,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 771835268763566359, guid: c9a08659eb33fe9499f9aa9310263a40,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 48e3220c6720f3242a67cbb0fec6141b, type: 2}
     - target: {fileID: 3734792182569360937, guid: c9a08659eb33fe9499f9aa9310263a40,
         type: 3}
       propertyPath: m_Name
@@ -17573,6 +17583,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4672593236832530925, guid: c9a08659eb33fe9499f9aa9310263a40,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4672593236832530925, guid: c9a08659eb33fe9499f9aa9310263a40,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 48e3220c6720f3242a67cbb0fec6141b, type: 2}
     - target: {fileID: 5206638073965654693, guid: c9a08659eb33fe9499f9aa9310263a40,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

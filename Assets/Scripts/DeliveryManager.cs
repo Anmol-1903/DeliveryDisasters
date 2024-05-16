@@ -12,6 +12,14 @@ public class DeliveryManager : MonoBehaviour
     [SerializeField] GameObject[] _allLocations;
     [SerializeField] GameObject _selectedHouse;
     [SerializeField] GameObject _selectedLocation;
+
+
+    Vector3 drop1, drop2;
+    float dist;
+
+    public delegate void TimeUpdateEventHandler(int pts);
+
+    public static event TimeUpdateEventHandler OnTimeUpdate;
     private void Start()
     {
         _allHouses = GameObject.FindGameObjectsWithTag("House");
@@ -42,10 +50,17 @@ public class DeliveryManager : MonoBehaviour
         }
         _selectedLocation = _locations[Random.Range(0, _locations.Count)];
         _houses.Remove(_selectedLocation);
+        drop1 = drop2;
+        drop2 = _selectedLocation.transform.position;
+        dist = Vector3.Distance(drop1,drop2);
         if (!FindObjectOfType<PlayerController>().hasPackage)
         {
             GameObject temp = Instantiate(_pickupPrefab, _selectedLocation.transform.position, Quaternion.identity);
             temp.transform.SetParent(_container.transform);
+            if (OnTimeUpdate != null)
+            {
+                OnTimeUpdate((int)dist);
+            }
         }
         else
         {

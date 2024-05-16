@@ -1,144 +1,123 @@
+using System;
 using UnityEngine;
-public class TimeManager : MonoBehaviour
+using TMPro;
+
+public class TimeController : MonoBehaviour
 {
-    [SerializeField] Material _skybox;
-    [SerializeField] GameObject _windZone;
-    [SerializeField] StreetLights[] _streetLights;
-    [Header("Time")]
-    [Tooltip("Day Length in Minutes")]
     [SerializeField]
-    private float _targetDayLength = 0.5f; //length of day in minutes
-    private void Awake()
+    private float timeMultiplier;
+
+    [SerializeField]
+    private float startHour;
+
+    [SerializeField]
+    private TextMeshProUGUI timeText;
+
+    [SerializeField]
+    private Light sunLight;
+
+    [SerializeField]
+    private float sunriseHour;
+
+    [SerializeField]
+    private float sunsetHour;
+
+    [SerializeField]
+    private Color dayAmbientLight;
+
+    [SerializeField]
+    private Color nightAmbientLight;
+
+    [SerializeField]
+    private AnimationCurve lightChangeCurve;
+
+    [SerializeField]
+    private float maxSunLightIntensity;
+
+    [SerializeField]
+    private Light moonLight;
+
+    [SerializeField]
+    private float maxMoonLightIntensity;
+
+    private DateTime currentTime;
+
+    private TimeSpan sunriseTime;
+
+    private TimeSpan sunsetTime;
+
+    // Start is called before the first frame update
+    void Start()
     {
-        _streetLights = FindObjectsOfType<StreetLights>();
+        currentTime = DateTime.Now.Date + TimeSpan.FromHours(startHour);
+
+        sunriseTime = TimeSpan.FromHours(sunriseHour);
+        sunsetTime = TimeSpan.FromHours(sunsetHour);
     }
-    public float targetDayLength
+
+    // Update is called once per frame
+    void Update()
     {
-        get
+        if(UIManager.Instance.IsPaused())
+            return;
+        UpdateTimeOfDay();
+        RotateSun();
+        UpdateLightSettings();
+    }
+
+    private void UpdateTimeOfDay()
+    {
+        currentTime = currentTime.AddSeconds(Time.deltaTime * timeMultiplier);
+
+        if (timeText != null)
         {
-            return _targetDayLength;
+            timeText.text = currentTime.ToString("HH:mm");
         }
     }
-    [SerializeField]
-    [Range(0f, 1f)]
-    public float _timeOfDay;
-    public float timeOfDay
+
+    private void RotateSun()
     {
-        get
+        float sunLightRotation;
+
+        if (currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetTime)
         {
-            return _timeOfDay;
-        }
-    }
-    [SerializeField]
-    private int _dayNumber = 0; //tracks the days passed
-    public int dayNumber
-    {
-        get
-        {
-            return _dayNumber;
-        }
-    }
-    [SerializeField]
-    private int _yearNumber = 0;
-    public int yearNumber
-    {
-        get
-        {
-            return _yearNumber;
-        }
-    }
-    private float _timeScale = 100f;
-    [SerializeField]
-    private int _yearLength = 100;
-    public float yearLength
-    {
-        get
-        {
-            return _yearLength;
-        }
-    }
-    public bool pause = false;
-    [SerializeField]
-    private AnimationCurve timeCurve;
-    [Header("Sun Light")]
-    [SerializeField]
-    private Transform dailyRotation;
-    [SerializeField]
-    private Light sun;
-    private float intensity;
-    [SerializeField]
-    private float sunBaseIntensity = 1f;
-    [SerializeField]
-    private float sunVariation = 1.5f;
-    [SerializeField]
-    private Gradient sunColor;
-    private void Start()
-    {
-        Time.timeScale = 1f;
-        _skybox = RenderSettings.skybox;
-    }
-    private void Update()
-    {
-        if (!pause)
-        {
-            UpdateTimeScale();
-            UpdateTime();
-        }
-        AdjustSunRotation();
-        SunIntensity();
-        AdjustSunColor();
-        if (_timeOfDay > 0.3f && _timeOfDay <= 0.7f)
-        {
-            for(int i=0; i < _streetLights.Length; i++)
-            {
-                _streetLights[i].TurnOffStreetLights();
-            }
+            TimeSpan sunriseToSunsetDuration = CalculateTimeDifference(sunriseTime, sunsetTime);
+            TimeSpan timeSinceSunrise = CalculateTimeDifference(sunriseTime, currentTime.TimeOfDay);
+
+            double percentage = timeSinceSunrise.TotalMinutes / sunriseToSunsetDuration.TotalMinutes;
+
+            sunLightRotation = Mathf.Lerp(0, 180, (float)percentage);
         }
         else
         {
-            for (int i = 0; i < _streetLights.Length; i++)
-            {
-                _streetLights[i].TurnOnStreetLights();
-            }
+            TimeSpan sunsetToSunriseDuration = CalculateTimeDifference(sunsetTime, sunriseTime);
+            TimeSpan timeSinceSunset = CalculateTimeDifference(sunsetTime, currentTime.TimeOfDay);
+
+            double percentage = timeSinceSunset.TotalMinutes / sunsetToSunriseDuration.TotalMinutes;
+
+            sunLightRotation = Mathf.Lerp(180, 360, (float)percentage);
         }
+
+        sunLight.transform.rotation = Quaternion.AngleAxis(sunLightRotation, Vector3.right);
     }
 
-    private void UpdateTimeScale()
+    private void UpdateLightSettings()
     {
-        _timeScale = 24 / (_targetDayLength / 60);
+        float dotProduct = Vector3.Dot(sunLight.transform.forward, Vector3.down);
+        sunLight.intensity = Mathf.Lerp(0, maxSunLightIntensity, lightChangeCurve.Evaluate(dotProduct));
+        moonLight.intensity = Mathf.Lerp(maxMoonLightIntensity, 0, lightChangeCurve.Evaluate(dotProduct));
+        RenderSettings.ambientLight = Color.Lerp(nightAmbientLight, dayAmbientLight, lightChangeCurve.Evaluate(dotProduct));
     }
 
-    private void UpdateTime()
+    private TimeSpan CalculateTimeDifference(TimeSpan fromTime, TimeSpan toTime)
     {
-        _timeOfDay += Time.deltaTime * _timeScale / 86400;
-        if (_timeOfDay > 1) 
+        TimeSpan difference = toTime - fromTime;
+
+        if (difference.TotalSeconds < 0)
         {
-            _dayNumber++;
-            _timeOfDay -= 1;
-
-            if (_dayNumber > _yearLength) 
-            {
-                _yearNumber++;
-                _dayNumber = 0;
-            }
+            difference += TimeSpan.FromHours(24);
         }
-    }
-    private void AdjustSunRotation()
-    {
-        float sunAngle = timeOfDay * 360f;
-        dailyRotation.transform.localRotation = Quaternion.Euler(new Vector3(0f, 0f, sunAngle));
-        _windZone.transform.localRotation = Quaternion.Euler(new Vector3(0f,sunAngle ,0f));
-    }
-    private void SunIntensity()
-    {
-        intensity = Vector3.Dot(sun.transform.forward, Vector3.down);
-        intensity = Mathf.Clamp01(intensity);
 
-        sun.intensity = intensity * sunVariation + sunBaseIntensity;
-    }
-    private void AdjustSunColor()
-    {
-        sun.color = sunColor.Evaluate(intensity);
-        _skybox.SetColor("_Tint", sunColor.Evaluate(intensity));
+        return difference;
     }
 }

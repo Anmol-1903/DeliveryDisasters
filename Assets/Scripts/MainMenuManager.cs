@@ -176,7 +176,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void OpenDonation()
     {
-        Application.OpenURL("https://tr.ee/Rdv7gzw2MQ");
+        Application.OpenURL("https://tr.ee/0V2-YAGCvz");
     }
     
     public void PlayGame()

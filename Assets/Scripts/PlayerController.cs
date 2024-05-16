@@ -181,7 +181,7 @@ public class PlayerController : MonoBehaviour
         {
             if (noiseProfile != null)
             {
-                noiseProfile.m_FrequencyGain = (rb.velocity.magnitude / _maxSpeed * 2.5f) + .5f;
+                noiseProfile.m_FrequencyGain = (rb.velocity.magnitude / _maxSpeed * 2.5f) + .2f;
             }
         }
     }
