@@ -71,6 +71,24 @@ public partial class @CarController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Camera"",
+                    ""type"": ""Button"",
+                    ""id"": ""146120d9-647d-4c40-9aec-5664175f3412"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Minimap"",
+                    ""type"": ""Button"",
+                    ""id"": ""d62c31f7-28f8-4cce-9b32-b0a131376489"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -348,6 +366,50 @@ public partial class @CarController: IInputActionCollection2, IDisposable
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""49d97ee6-674a-42af-a92e-c3392aca1a85"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""18702315-425e-47aa-b4a5-c43bf88388a0"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cae1c447-85c3-4253-baa1-1e1b4f54ca86"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minimap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6fd1f19a-7993-4c21-b93c-0ceb1c82c04d"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Minimap"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -361,6 +423,8 @@ public partial class @CarController: IInputActionCollection2, IDisposable
         m_Drive_Handbrake = m_Drive.FindAction("Handbrake", throwIfNotFound: true);
         m_Drive_Lights = m_Drive.FindAction("Lights", throwIfNotFound: true);
         m_Drive_Pause = m_Drive.FindAction("Pause", throwIfNotFound: true);
+        m_Drive_Camera = m_Drive.FindAction("Camera", throwIfNotFound: true);
+        m_Drive_Minimap = m_Drive.FindAction("Minimap", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -427,6 +491,8 @@ public partial class @CarController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Drive_Handbrake;
     private readonly InputAction m_Drive_Lights;
     private readonly InputAction m_Drive_Pause;
+    private readonly InputAction m_Drive_Camera;
+    private readonly InputAction m_Drive_Minimap;
     public struct DriveActions
     {
         private @CarController m_Wrapper;
@@ -436,6 +502,8 @@ public partial class @CarController: IInputActionCollection2, IDisposable
         public InputAction @Handbrake => m_Wrapper.m_Drive_Handbrake;
         public InputAction @Lights => m_Wrapper.m_Drive_Lights;
         public InputAction @Pause => m_Wrapper.m_Drive_Pause;
+        public InputAction @Camera => m_Wrapper.m_Drive_Camera;
+        public InputAction @Minimap => m_Wrapper.m_Drive_Minimap;
         public InputActionMap Get() { return m_Wrapper.m_Drive; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -460,6 +528,12 @@ public partial class @CarController: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @Camera.started += instance.OnCamera;
+            @Camera.performed += instance.OnCamera;
+            @Camera.canceled += instance.OnCamera;
+            @Minimap.started += instance.OnMinimap;
+            @Minimap.performed += instance.OnMinimap;
+            @Minimap.canceled += instance.OnMinimap;
         }
 
         private void UnregisterCallbacks(IDriveActions instance)
@@ -479,6 +553,12 @@ public partial class @CarController: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @Camera.started -= instance.OnCamera;
+            @Camera.performed -= instance.OnCamera;
+            @Camera.canceled -= instance.OnCamera;
+            @Minimap.started -= instance.OnMinimap;
+            @Minimap.performed -= instance.OnMinimap;
+            @Minimap.canceled -= instance.OnMinimap;
         }
 
         public void RemoveCallbacks(IDriveActions instance)
@@ -503,5 +583,7 @@ public partial class @CarController: IInputActionCollection2, IDisposable
         void OnHandbrake(InputAction.CallbackContext context);
         void OnLights(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnCamera(InputAction.CallbackContext context);
+        void OnMinimap(InputAction.CallbackContext context);
     }
 }

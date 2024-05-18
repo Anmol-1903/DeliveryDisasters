@@ -20,7 +20,12 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject Info;
     [SerializeField] GameObject Customize;
     [SerializeField] GameObject Settings;
+    [SerializeField] GameObject Credits;
     [SerializeField] GameObject PlayButton;
+
+    [Header("Toggles")]
+    [SerializeField] Toggle r;
+    [SerializeField] Toggle g,y;
 
     [Header("Other")]
     [SerializeField] GameObject[] _trafficLights;
@@ -33,12 +38,10 @@ public class MainMenuManager : MonoBehaviour
     int _tileNumber;
 
     bool s, c;
-    ToggleGroup _toggleGroup;
     Animator _anim;
 
     private void Awake()
     {
-        _toggleGroup = GetComponentInChildren<ToggleGroup>();
         _anim = GetComponentInChildren<Animator>();
         _carNumber = PlayerPrefs.GetInt("Car", 0);
         _tileNumber = PlayerPrefs.GetInt("Tile", 0);
@@ -49,6 +52,7 @@ public class MainMenuManager : MonoBehaviour
         _anim.SetInteger("Panel", 0);
         Settings.SetActive(false);
         Customize.SetActive(false);
+        Credits.SetActive(false);
         _trafficLights[0].SetActive(false);
         _trafficLights[1].SetActive(false);
         _trafficLights[2].SetActive(false);
@@ -122,9 +126,14 @@ public class MainMenuManager : MonoBehaviour
             Settings.SetActive(true);
             Invoke(nameof(DisableCustomize), 1);
             Invoke(nameof(DisableInfo), 1);
+            Invoke(nameof(DisableCredits), 1);
             _trafficLights[0].SetActive(true);
             _trafficLights[1].SetActive(false);
             _trafficLights[2].SetActive(false);
+        }
+        else
+        {
+            SaveAndExit();
         }
     }
     public void OpenCustomize(bool on)
@@ -135,9 +144,32 @@ public class MainMenuManager : MonoBehaviour
             Customize.SetActive(true);
             Invoke(nameof(DisableInfo), 1);
             Invoke(nameof(DisableSettings), 1);
+            Invoke(nameof(DisableCredits), 1);
             _trafficLights[0].SetActive(false);
             _trafficLights[1].SetActive(true);
             _trafficLights[2].SetActive(false);
+        }
+        else
+        {
+            SaveAndExit();
+        }
+    }
+    public void OpenCredits(bool on)
+    {
+        if (on)
+        {
+            _anim.SetInteger("Panel", 3);
+            Credits.SetActive(true);
+            Invoke(nameof(DisableInfo), 1);
+            Invoke(nameof(DisableSettings), 1);
+            Invoke(nameof(DisableCustomize), 1);
+            _trafficLights[0].SetActive(false);
+            _trafficLights[1].SetActive(false);
+            _trafficLights[2].SetActive(true);
+        }
+        else
+        {
+            SaveAndExit();
         }
     }
     void DisableSettings()
@@ -148,17 +180,23 @@ public class MainMenuManager : MonoBehaviour
     {
         Customize.SetActive(false);
     }
+    void DisableCredits()
+    {
+        Credits.SetActive(false);
+    }
     void DisableInfo()
     {
         Info.SetActive(false);
     }
     public void SaveAndExit()
     {
+        if (r.isOn || g.isOn || y.isOn)
+            return;
         Info.SetActive(true);
         _anim.SetInteger("Panel", 0);
-        _toggleGroup.SetAllTogglesOff();
         Invoke(nameof(DisableSettings), 1);
         Invoke(nameof(DisableCustomize), 1);
+        Invoke(nameof(DisableCredits), 1);
 
         _trafficLights[0].SetActive(false);
         _trafficLights[1].SetActive(false);
@@ -178,11 +216,10 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.OpenURL("https://tr.ee/0V2-YAGCvz");
     }
-    
     public void PlayGame()
     {
-        _trafficLights[0].SetActive(false);
-        _trafficLights[1].SetActive(false);
+        _trafficLights[0].SetActive(true);
+        _trafficLights[1].SetActive(true);
         _trafficLights[2].SetActive(true);
         GetComponentInChildren<Animator>().SetTrigger("Start");
     }
