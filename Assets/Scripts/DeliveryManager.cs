@@ -24,6 +24,8 @@ public class DeliveryManager : MonoBehaviour
     {
         _allHouses = GameObject.FindGameObjectsWithTag("House");
         _allLocations = GameObject.FindGameObjectsWithTag("Waypoints");
+        drop1 = Vector3.zero;
+        drop2 = Vector3.zero;
         GeneratePackage();
         var director = FindObjectOfType<ArrowDirector>();
         if (director != null)
@@ -53,8 +55,14 @@ public class DeliveryManager : MonoBehaviour
         drop1 = drop2;
         drop2 = _selectedLocation.transform.position;
         dist = Vector3.Distance(drop1,drop2);
+        if (drop1 == Vector3.zero)
+        {
+            dist = 0;
+            UIManager.Instance.UpdateTime(120);
+        }
         if (!FindObjectOfType<PlayerController>().hasPackage)
         {
+            UIManager.Instance.UpdateTime(Mathf.FloorToInt(dist/2.5f));
             GameObject temp = Instantiate(_pickupPrefab, _selectedLocation.transform.position, Quaternion.identity);
             temp.transform.SetParent(_container.transform);
             if (OnTimeUpdate != null)

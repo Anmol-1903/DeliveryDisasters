@@ -1,6 +1,8 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
 {
     private static UIManager _instance;
@@ -15,11 +17,20 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timeText, scoreText, highscoreText;
 
-    [SerializeField] GameObject _pauseMenu;
+    [SerializeField] GameObject _pauseMenu, gameOverPanel;
 
-    float time;
+    bool gameOver;
+    float time, c;
     int score, highscore;
 
+    public int GetScore()
+    {
+        return score;
+    }
+    public float GetTime()
+    {
+        return c;
+    }
     public bool IsPaused()
     {
         return isPaused;
@@ -32,18 +43,22 @@ public class UIManager : MonoBehaviour
         highscore = PlayerPrefs.GetInt("Highscore", 0);
 
         isPaused = false;
-        time = 91f;
-        scoreText.text = $"Score: {score.ToString()}";
-        highscoreText.text = $"Highscore: {highscore.ToString()}";
+        time = 1f;
+        scoreText.text = $"Score: {score}";
+        highscoreText.text = $"Highscore: {highscore}";
     }
     private void OnDestroy()
     {
         DeliveryManager.OnTimeUpdate -= UpdateScore;
     }
+    public void UpdateTime(int amt)
+    {
+        time += amt;
+    }
     private void UpdateScore(int pts)
     {
         score += pts;
-        scoreText.text = $"Score: {score.ToString()}";
+        scoreText.text = $"Score: {score}";
         if(score > highscore)
         {
             UpdateHighscore();
@@ -52,6 +67,7 @@ public class UIManager : MonoBehaviour
 
     private void Update()
     {
+        c += Time.deltaTime;
         Timer();
     }
     public void Pause()
@@ -73,16 +89,38 @@ public class UIManager : MonoBehaviour
     void UpdateHighscore()
     {
         highscore = score;
-        highscoreText.text = $"Highscore: {highscore.ToString()}";
-        PlayerPrefs.SetInt("Highscore", (int)highscore);
+        highscoreText.text = $"Highscore: {highscore}";
+        PlayerPrefs.SetInt("Highscore", highscore);
     }
     public void Timer()
     {
-        time -= Time.deltaTime;
         if (time <= 0)
         {
-            //game Over
+            GameOver();
+            timeText.text = "00:00";
         }
-        timeText.text = $"{(time / 60).ToString("00")}:{(time % 60).ToString("00")}";
+        else
+        {
+            time -= Time.deltaTime;
+            timeText.text = $"{Mathf.FloorToInt(time / 60).ToString("00")}:{(time % 60).ToString("00")}";
+        }
+    }
+    void GameOver()
+    {
+        if (gameOver)
+            return;
+        gameOver = true;
+        Time.timeScale = 0f;
+        gameOverPanel.SetActive(true);
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadSceneAsync(0);
+    }
+    public void Restart()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

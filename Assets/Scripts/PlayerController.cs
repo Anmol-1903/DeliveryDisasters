@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject _headLights;
     [SerializeField] GameObject _brakeLights;
 
-    [SerializeField] LayerMask groundLayer;
+    [SerializeField] LayerMask groundLayer, roadLayer;
     [SerializeField] float vibrationThreshold = 0.20f;
 
     CinemachineFreeLook cinemachineVirtual;
@@ -40,7 +40,8 @@ public class PlayerController : MonoBehaviour
     public bool hasPackage;
     public bool isHeadlightOn;
     private bool isHandbrakeActivated;
-    private bool gamepadConnected = false;
+
+    private InputDevice currentInputDevice;
 
     private void Awake()
     {
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour
         cinemachineVirtual.LookAt = GameObject.FindGameObjectWithTag("Player").transform.GetChild(0);
         noiseProfile = cinemachineVirtual.GetRig(1).GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
         rb = GetComponent<Rigidbody>();
-
     }
     private void OnEnable()
     {
@@ -62,35 +62,13 @@ public class PlayerController : MonoBehaviour
         carcontroller.Drive.Lights.performed += Lights_performed;
         carcontroller.Drive.Pause.performed += Pause_performed;
 
-        InputSystem.onDeviceChange += CheckForGamepad;
-        //CheckForGamepad();
+        InputSystem.onActionChange += OnActionChange;
 
         carcontroller.Drive.Vertical.canceled += Vertical_canceled;
         carcontroller.Drive.Horizontal.canceled += Horizontal_canceled;
         carcontroller.Drive.Handbrake.canceled += Handbrake_canceled;
     }
 
-    private void CheckForGamepad(InputDevice device, InputDeviceChange change)
-    {
-        gamepadConnected = false;
-
-        foreach (var gamepad in Gamepad.all)
-        {
-            if (gamepad != null)
-            {
-                gamepadConnected = true;
-                // Set vibration to 1 (assuming you have a method to set vibration)
-                ApplyGamepadVibration(1);
-                break;
-            }
-        }
-
-        if (!gamepadConnected)
-        {
-            // No gamepad connected, do something else or log a message
-            Debug.Log("No gamepad connected.");
-        }
-    }
 
     private void OnDisable()
     {
@@ -102,7 +80,7 @@ public class PlayerController : MonoBehaviour
         carcontroller.Drive.Lights.performed -= Lights_performed;
         carcontroller.Drive.Pause.performed -= Pause_performed;
 
-        InputSystem.onDeviceChange -= CheckForGamepad;
+        InputSystem.onActionChange -= OnActionChange;
 
         carcontroller.Drive.Vertical.canceled -= Vertical_canceled;
         carcontroller.Drive.Horizontal.canceled -= Horizontal_canceled;
@@ -155,6 +133,9 @@ public class PlayerController : MonoBehaviour
         if (_boot != null)
             _boot.SetActive(true);
         hasPackage = false;
+
+        roadLayer = LayerMask.GetMask("Default");
+
         ApplyGamepadVibration(0f);
     }
     private void Update()
@@ -282,45 +263,70 @@ public class PlayerController : MonoBehaviour
     }
     void ControlVibrations()
     {
-        if (IsWheelOnGroundLayer(_fl, groundLayer) || IsWheelOnGroundLayer(_fr, groundLayer) || IsWheelOnGroundLayer(_rl, groundLayer) || IsWheelOnGroundLayer(_rr, groundLayer))
+        bool isOnRoad = IsWheelOnGroundLayer(_fl, roadLayer) || IsWheelOnGroundLayer(_fr, roadLayer) || IsWheelOnGroundLayer(_rl, roadLayer) || IsWheelOnGroundLayer(_rr, roadLayer);
+        bool isOffRoad = IsWheelOnGroundLayer(_fl, groundLayer) || IsWheelOnGroundLayer(_fr, groundLayer) || IsWheelOnGroundLayer(_rl, groundLayer) || IsWheelOnGroundLayer(_rr, groundLayer);
+
+        float maxMotorSpeed = isOffRoad ? 0.5f : 0.25f;
+        float adjustedThreshold = isOffRoad ? vibrationThreshold / 2 : vibrationThreshold;
+
+        float speed = Mathf.Abs(dotProduct);
+        float normalizedSpeed = Mathf.InverseLerp(_maxSpeed * adjustedThreshold, _maxSpeed, speed);
+        float vibrationStrength = Mathf.Clamp(normalizedSpeed, 0f, 1f) * maxMotorSpeed;
+
+        if (!isOnRoad && !isOffRoad)
         {
-            if (dotProduct / _maxSpeed > vibrationThreshold)
-            {
-                float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
-                Mathf.Clamp(vibrationStrength, 0f, 1f);
-                ApplyGamepadVibration(vibrationStrength);
-            }
-            else
-            {
-                ApplyGamepadVibration(0f);
-            }
+            ApplyGamepadVibration(0f);
+        }
+        else if (normalizedSpeed > adjustedThreshold)
+        {
+            ApplyGamepadVibration(vibrationStrength);
         }
         else
         {
-            if (dotProduct / _maxSpeed > vibrationThreshold)
-            {
-                float vibrationStrength = Mathf.InverseLerp(0, 1, dotProduct);
-                Mathf.Clamp(vibrationStrength, 0f, 1f);
-                ApplyGamepadVibration(vibrationStrength / 2);
-            }
-            else
-            {
-                ApplyGamepadVibration(0f);
-            }
+            ApplyGamepadVibration(0f);
         }
     }
-    void ApplyGamepadVibration(float Strength)
+
+    void ApplyGamepadVibration(float strength)
     {
-        
+        if (currentInputDevice is Gamepad)
+        {
+            Gamepad.current?.SetMotorSpeeds(strength, strength);
+        }
+        else
+        {
+            Gamepad.current?.SetMotorSpeeds(0, 0);
+        }
+    }
+    private void OnActionChange(object obj, InputActionChange change)
+    {
+        if (change == InputActionChange.ActionPerformed)
+        {
+            var action = obj as InputAction;
+            if (action != null)
+            {
+                currentInputDevice = action.activeControl.device;
+            }
+        }
     }
     bool IsWheelOnGroundLayer(WheelCollider wheel, LayerMask layerMask)
     {
-        WheelHit wheelHit;
-        if (wheel.GetGroundHit(out wheelHit))
+        RaycastHit hit;
+        if (Physics.Raycast(wheel.transform.position, -wheel.transform.up, out hit, wheel.radius + wheel.suspensionDistance))
         {
-            int hitLayer = wheelHit.collider.gameObject.layer;
-            return layerMask == (layerMask | (1 << hitLayer));
+            return ((1 << hit.collider.gameObject.layer) & layerMask) != 0;
         }
         return false;
+    }
+    private void OnApplicationPause(bool pauseStatus)
+    {
+        if (pauseStatus)
+        {
+            Gamepad.current?.SetMotorSpeeds(0, 0);
+        }
+    }
+    private void OnApplicationQuit()
+    {
+        Gamepad.current?.SetMotorSpeeds(0, 0);
     }
 }
