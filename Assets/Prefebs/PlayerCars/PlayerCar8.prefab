@@ -1268,7 +1268,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5245158089940504770}
   serializedVersion: 4
-  m_Mass: 1500
+  m_Mass: 2500
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: -0.05, z: 0}
@@ -1321,7 +1321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 10
-  _motorForce: 1500
+  _motorForce: 2000
   _steerAngle: 25
   _currentSteerAngle: 0
   _minFOV: 40
@@ -1343,7 +1343,7 @@ MonoBehaviour:
   roadLayer:
     serializedVersion: 2
     m_Bits: 0
-  vibrationThreshold: 0.2
+  vibrationThreshold: 0.1
   noiseProfile: {fileID: 0}
   _package: {fileID: 5857600882860741199}
   _boot: {fileID: 0}

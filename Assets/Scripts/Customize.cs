@@ -16,6 +16,9 @@ public class Customize : MonoBehaviour
     [SerializeField] Slider Met;
     [SerializeField] Slider Glo;
 
+    [Header("SliderBG")]
+    [SerializeField] Image[] bgs;
+
     [Header("Other")]
     [SerializeField] TextMeshProUGUI MaterialText;
 
@@ -95,6 +98,10 @@ public class Customize : MonoBehaviour
     {
         H[selectedMaterial] = _val;
         PlayerPrefs.SetFloat("H" + selectedMaterial.ToString(), _val);
+        for (int i = 0; i < bgs.Length; i++)
+        {
+            bgs[i].color = Color.HSVToRGB(_val, 1, 1);
+        }
         SetMaterial();
     }
     public void SaturationController(float _val)
@@ -130,6 +137,10 @@ public class Customize : MonoBehaviour
             Ver.value = PlayerPrefs.GetFloat("V" + selectedMaterial.ToString(), 1);
             Met.value = PlayerPrefs.GetFloat("M" + selectedMaterial.ToString(), .5f);
             Glo.value = PlayerPrefs.GetFloat("G" + selectedMaterial.ToString(), .5f);
+        }
+        for (int i = 0; i < bgs.Length; i++)
+        {
+            bgs[i].color = Color.HSVToRGB(Hue.value, 1, 1);
         }
     }
 }

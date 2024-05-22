@@ -2048,16 +2048,16 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2396614748907061301}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.375
   m_SuspensionSpring:
-    spring: 35000
+    spring: 50000
     damper: 2000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.5
+    targetPosition: 0.25
+  m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 300
-  m_WheelDampingRate: 0.1
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
@@ -2068,8 +2068,8 @@ WheelCollider:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -2391,7 +2391,7 @@ Rigidbody:
   m_Mass: 3000
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: -0.3, z: 0}
+  m_CenterOfMass: {x: 0, y: 0.25, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -2440,12 +2440,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881b9381d5ae58a4da237d3ffe924fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 10
-  _motorForce: 1500
+  _maxSpeed: 25
+  _motorForce: 4000
   _steerAngle: 25
   _currentSteerAngle: 0
   _minFOV: 40
-  _maxFOV: 80
+  _maxFOV: 60
   _brakeTorque: 3000
   _fl: {fileID: 3450740436696662181}
   _fr: {fileID: 7762306583005472031}
@@ -3467,16 +3467,16 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4813393406133162974}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.375
   m_SuspensionSpring:
-    spring: 35000
+    spring: 50000
     damper: 2000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.5
+    targetPosition: 0.25
+  m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 300
-  m_WheelDampingRate: 0.1
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
@@ -3487,8 +3487,8 @@ WheelCollider:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -3774,7 +3774,7 @@ Transform:
   m_GameObject: {fileID: 5149540894857051048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7541413, y: 0, z: -0.061975367}
+  m_LocalPosition: {x: -4.76, y: 0, z: -0.062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5259,16 +5259,16 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6715691836674735824}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.375
   m_SuspensionSpring:
-    spring: 35000
+    spring: 50000
     damper: 2000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.5
+    targetPosition: 0.25
+  m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 300
-  m_WheelDampingRate: 0.1
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
@@ -5279,8 +5279,8 @@ WheelCollider:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -6299,8 +6299,8 @@ HingeJoint:
   m_ExtendedLimits: 0
   m_UseAcceleration: 0
   m_Limits:
-    min: 282.0312
-    max: 337.65985
+    min: -95.542786
+    max: -2.0543327
     bounciness: 0
     bounceMinVelocity: 0.2
     contactDistance: 0
@@ -6951,16 +6951,16 @@ WheelCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7885253272829524879}
   serializedVersion: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.375
   m_SuspensionSpring:
-    spring: 35000
+    spring: 50000
     damper: 2000
-    targetPosition: 0.5
-  m_SuspensionDistance: 0.5
+    targetPosition: 0.25
+  m_SuspensionDistance: 0.2
   m_ForceAppPointDistance: 0
   m_Mass: 300
-  m_WheelDampingRate: 0.1
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
@@ -6971,8 +6971,8 @@ WheelCollider:
     m_ExtremumSlip: 0.6
     m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65

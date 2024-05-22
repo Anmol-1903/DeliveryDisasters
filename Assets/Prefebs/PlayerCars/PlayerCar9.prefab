@@ -1080,7 +1080,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847012005769047645}
   serializedVersion: 4
-  m_Mass: 1500
+  m_Mass: 3000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: -0.1, z: 0}
@@ -1132,13 +1132,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881b9381d5ae58a4da237d3ffe924fac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxSpeed: 30
-  _motorForce: 5000
+  _maxSpeed: 40
+  _motorForce: 6000
   _steerAngle: 30
   _currentSteerAngle: 0
   _minFOV: 45
   _maxFOV: 80
-  _brakeTorque: 4000
+  _brakeTorque: 5000
   _fl: {fileID: 8080713863270264125}
   _fr: {fileID: 5468468554808416173}
   _rl: {fileID: 9138933128135050665}
@@ -1155,7 +1155,7 @@ MonoBehaviour:
   roadLayer:
     serializedVersion: 2
     m_Bits: 0
-  vibrationThreshold: 0.15
+  vibrationThreshold: 0.1
   noiseProfile: {fileID: 0}
   _package: {fileID: 2179678409909319239}
   _boot: {fileID: 8836908993910844255}

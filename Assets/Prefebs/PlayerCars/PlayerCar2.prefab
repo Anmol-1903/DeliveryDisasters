@@ -541,12 +541,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 30
-  _motorForce: 5000
+  _motorForce: 3000
   _steerAngle: 30
   _currentSteerAngle: 0
   _minFOV: 45
   _maxFOV: 80
-  _brakeTorque: 4000
+  _brakeTorque: 3000
   _fl: {fileID: 6592314315011250037}
   _fr: {fileID: 3586693756291312250}
   _rl: {fileID: 1807491506513419256}
