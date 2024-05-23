@@ -275,14 +275,17 @@ public class PlayerController : MonoBehaviour
 
         if (!isOnRoad && !isOffRoad)
         {
+            Debug.Log("Airborn");
             ApplyGamepadVibration(0f);
         }
         else if (normalizedSpeed > adjustedThreshold)
         {
+            Debug.Log("Perfect");
             ApplyGamepadVibration(vibrationStrength);
         }
         else
         {
+            Debug.Log("Too Slow");
             ApplyGamepadVibration(0f);
         }
     }
@@ -316,6 +319,7 @@ public class PlayerController : MonoBehaviour
         {
             return ((1 << hit.collider.gameObject.layer) & layerMask) != 0;
         }
+        Debug.DrawRay(wheel.transform.position, -wheel.transform.up, Color.red, wheel.radius + wheel.suspensionDistance);
         return false;
     }
     private void OnApplicationPause(bool pauseStatus)

@@ -55,13 +55,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 5
+    m_Stiffness: 0.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -438,13 +438,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 5
+    m_Stiffness: 0.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -3439,10 +3439,11 @@ Transform:
   m_GameObject: {fileID: 6140726872135138055}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7862477, y: 20.007807, z: 34.94675}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.25, y: 1.25, z: 1.25}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 3341485485746509798}
   - {fileID: 1469404760397307734}
   - {fileID: 2409833258766402604}
   - {fileID: 5763385884656209473}
@@ -3450,7 +3451,6 @@ Transform:
   - {fileID: 3393394187042139508}
   - {fileID: 6989620572787373544}
   - {fileID: 8201359296936341951}
-  - {fileID: 3341485485746509798}
   - {fileID: 4202440653251458001}
   - {fileID: 7919611277569818842}
   - {fileID: 3898414779645265655}
@@ -3548,12 +3548,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSpeed: 35
-  _motorForce: 5000
+  _motorForce: 7000
   _steerAngle: 30
   _currentSteerAngle: 0
   _minFOV: 45
   _maxFOV: 80
-  _brakeTorque: 4000
+  _brakeTorque: 5500
   _fl: {fileID: 3525891832727918606}
   _fr: {fileID: 3284201530096860877}
   _rl: {fileID: 5691031572108810760}
@@ -3965,13 +3965,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 5
+    m_Stiffness: 0.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -5086,13 +5086,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 5
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 5
+    m_Stiffness: 0.75
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

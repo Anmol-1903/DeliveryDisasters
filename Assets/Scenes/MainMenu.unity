@@ -2747,10 +2747,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
-    m_HighlightedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 1}
+    m_HighlightedColor: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 1}
     m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_SelectedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -11565,7 +11565,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: aa15c5c229b67fc489dcca37d474a7aa, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 84c97c87209b2aa449d531d983d740e3, type: 2}
 --- !u!1 &1398373710
 GameObject:
   m_ObjectHideFlags: 0
@@ -13676,7 +13676,6 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 2bbd8081d3b0e3d46affa667ea2bccee, type: 2}
   - {fileID: 2100000, guid: 4cf5903fbcb5bae44bf21f15cb32ad07, type: 2}
   - {fileID: 2100000, guid: b2bc3ef85b75ecd4bb019753e5f4e416, type: 2}
-  - {fileID: 2100000, guid: 174fc9804bb0947448b3a9bb128e06fa, type: 2}
   - {fileID: 2100000, guid: c26d1c4c5af998548a7b2edb4c295130, type: 2}
   - {fileID: 2100000, guid: 4de70c9afd0a10e4fafd174387338ef4, type: 2}
   - {fileID: 2100000, guid: 6de6fd335eb7f57469692603b72dbb9e, type: 2}
@@ -15425,26 +15424,26 @@ MonoBehaviour:
 
       Turns smoothly and handles well.
 
-      
+
 
       Roll-Prone:
 
       Ready
       to roll over at the slightest tilt.
 
-      
+
 
       Quick Getaway:
 
-      Gets
-      up to speed swiftly and stops on a dime.
+      Gets up
+      to speed swiftly and stops on a dime.
 
-      
+
 
       Kidnap Cruiser:
 
-      Not
-      just for transportation, this van is ideal for discreet operations.'
+      Not just
+      for transportation, this van is ideal for discreet operations.'
   - car: {fileID: 1879111153}
     name: Titan
     info: "Wheel Titan:\nWith its massive wheels, it never gets stuck.\n\nSizeable

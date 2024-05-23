@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-
 public class ScrollViewAutoScroll : MonoBehaviour
 {
     [SerializeField] Scrollbar _scrollbar;
@@ -13,8 +12,6 @@ public class ScrollViewAutoScroll : MonoBehaviour
         {
             _toggles = GetComponentsInChildren<Toggle>();
         }
-
-        // Add event triggers to each toggle
         foreach (Toggle toggle in _toggles)
         {
             EventTrigger trigger = toggle.gameObject.GetComponent<EventTrigger>();
@@ -22,16 +19,12 @@ public class ScrollViewAutoScroll : MonoBehaviour
             {
                 trigger = toggle.gameObject.AddComponent<EventTrigger>();
             }
-
-            // Add PointerEnter event listener
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.Select;
             entry.callback.AddListener((data) => { OnToggleSelected(toggle); });
             trigger.triggers.Add(entry);
         }
     }
-
-    // Called when a toggle is selected
     private void OnToggleSelected(Toggle selectedToggle)
     {
         int index = System.Array.IndexOf(_toggles, selectedToggle);

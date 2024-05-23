@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 public class UIManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText, scoreText, highscoreText;
 
     [SerializeField] GameObject _pauseMenu, gameOverPanel;
+    [SerializeField] GameObject _restartButton;
 
     bool gameOver;
     float time, c;
@@ -114,6 +116,8 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        EventSystem.current.SetSelectedGameObject(_restartButton);
+
     }
     public void MainMenu()
     {

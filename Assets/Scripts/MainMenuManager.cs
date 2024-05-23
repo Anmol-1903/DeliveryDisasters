@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-
-
 [Serializable]
 public class CarInfo
 {
@@ -174,18 +172,22 @@ public class MainMenuManager : MonoBehaviour
     }
     void DisableSettings()
     {
+        EventSystem.current.SetSelectedGameObject(r.gameObject);
         Settings.SetActive(false);
     }
     void DisableCustomize()
     {
+        EventSystem.current.SetSelectedGameObject(y.gameObject);
         Customize.SetActive(false);
     }
     void DisableCredits()
     {
+        EventSystem.current.SetSelectedGameObject(g.gameObject);
         Credits.SetActive(false);
     }
     void DisableInfo()
     {
+        EventSystem.current.SetSelectedGameObject(PlayButton.gameObject);
         Info.SetActive(false);
     }
     public void SaveAndExit()
