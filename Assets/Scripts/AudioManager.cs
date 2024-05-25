@@ -42,7 +42,7 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         _crashing = false;
-        _carSource = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<AudioSource>();
+        _carSource = GameObject.FindGameObjectWithTag("Player")?.GetComponentInChildren<AudioSource>();
         i = PlayerPrefs.GetInt("BGM", 0);
         _bgmSource.clip = _bgm[i];
         _bgmSource.Play();
@@ -55,6 +55,10 @@ public class AudioManager : MonoBehaviour
     }
     private void Update()
     {
+        if(UIManager.Instance == null)
+        {
+            return;
+        }
         if (UIManager.Instance.IsPaused())
         {
             if (_carSource)

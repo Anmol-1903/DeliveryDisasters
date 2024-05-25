@@ -224,5 +224,7 @@ public class MainMenuManager : MonoBehaviour
         _trafficLights[1].SetActive(true);
         _trafficLights[2].SetActive(true);
         GetComponentInChildren<Animator>().SetTrigger("Start");
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

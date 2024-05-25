@@ -275,17 +275,14 @@ public class PlayerController : MonoBehaviour
 
         if (!isOnRoad && !isOffRoad)
         {
-            Debug.Log("Airborn");
             ApplyGamepadVibration(0f);
         }
         else if (normalizedSpeed > adjustedThreshold)
         {
-            Debug.Log("Perfect");
             ApplyGamepadVibration(vibrationStrength);
         }
         else
         {
-            Debug.Log("Too Slow");
             ApplyGamepadVibration(0f);
         }
     }
