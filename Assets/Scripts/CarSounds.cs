@@ -6,7 +6,7 @@ public class CarSounds : MonoBehaviour
 
     [SerializeField] float _minSpeed, _maxSpeed;
     [SerializeField] float _minPitch, _maxPitch;
-    float _currentSpeed, _pitchFromCar;
+    float _currentSpeed;
 
     private void Awake()
     {
@@ -22,18 +22,6 @@ public class CarSounds : MonoBehaviour
         if (UIManager.Instance.IsPaused())
             return;
         _currentSpeed = rb.velocity.magnitude;
-        _pitchFromCar = rb.velocity.magnitude / 50;
-        if(_currentSpeed <= _minSpeed)
-        {
-            _carSoundSource.pitch = _minPitch;
-        }
-        else if(_currentSpeed >= _maxSpeed)
-        {
-            _carSoundSource.pitch = _maxPitch;
-        }
-        else
-        {
-            _carSoundSource.pitch = _minPitch + _pitchFromCar;
-        }
+        _carSoundSource.pitch = Mathf.Lerp(_minPitch, _maxPitch, _currentSpeed / _maxSpeed);
     }
 }
