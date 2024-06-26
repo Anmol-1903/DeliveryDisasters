@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 public class DeliveryManager : MonoBehaviour
 {
     [SerializeField] GameObject _pickupPrefab;
@@ -26,8 +27,8 @@ public class DeliveryManager : MonoBehaviour
         _allLocations = GameObject.FindGameObjectsWithTag("Waypoints");
         drop1 = Vector3.zero;
         drop2 = Vector3.zero;
-        GeneratePackage();
         var director = FindObjectOfType<ArrowDirector>();
+        GeneratePackage();
         if (director != null)
         {
             director.ReInitializeTarget();
@@ -40,7 +41,7 @@ public class DeliveryManager : MonoBehaviour
         {
             _houses.Add(home);
         }
-        _selectedHouse = _houses[Random.Range(0, _houses.Count)];
+        _selectedHouse = _houses[UnityEngine.Random.Range(0, _houses.Count)];
         _houses.Remove(_selectedHouse);
         _locations.Clear();
         foreach (GameObject loc in _allLocations)
@@ -50,7 +51,7 @@ public class DeliveryManager : MonoBehaviour
                 _locations.Add(loc);
             }
         }
-        _selectedLocation = _locations[Random.Range(0, _locations.Count)];
+        _selectedLocation = _locations[UnityEngine.Random.Range(0, _locations.Count)];
         _houses.Remove(_selectedLocation);
         drop1 = drop2;
         drop2 = _selectedLocation.transform.position;

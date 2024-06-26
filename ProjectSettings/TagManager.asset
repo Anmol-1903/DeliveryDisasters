@@ -11,6 +11,8 @@ TagManager:
   - House
   - Target
   - PostProcessVolume
+  - Obstacle
+  - Ground
   layers:
   - Default
   - TransparentFX

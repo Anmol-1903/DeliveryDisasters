@@ -121,10 +121,13 @@ public class UIManager : MonoBehaviour
     }
     public void MainMenu()
     {
+        isPaused = true;
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(0);
     }
     public void Restart()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 }

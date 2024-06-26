@@ -218,7 +218,7 @@ public class PlayerController : MonoBehaviour
             _rr.brakeTorque = 0;
         }
         // Movement
-        if (rb.velocity.magnitude < _maxSpeed && !isHandbrakeActivated)
+        if (carVelocity.magnitude < _maxSpeed && !isHandbrakeActivated)
         {
             _rl.motorTorque = _vertical * _motorForce;
             _rr.motorTorque = _vertical * _motorForce;
@@ -250,15 +250,19 @@ public class PlayerController : MonoBehaviour
     }
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.layer == LayerMask.NameToLayer("MAP"))
-        {
-        }
-        if (other.gameObject.layer == LayerMask.NameToLayer("MAP") || other.gameObject.layer == LayerMask.NameToLayer("OBSTACLE"))
+        if (other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("House") || other.gameObject.CompareTag("Ground"))
         {
             float collisionSpeed = other.relativeVelocity.magnitude;
             float collisionAngle = Vector3.Angle(other.relativeVelocity, transform.forward);
 
             AudioManager.Instance.PlayCrashSound(collisionSpeed, collisionAngle);
+
+            if(other.gameObject.CompareTag("Obstacle") || other.gameObject.CompareTag("House"))
+            {
+                Vector3 carVelocity = rb.velocity;
+                dotProduct = Vector3.Dot(transform.forward, carVelocity);
+                UIManager.Instance.UpdateTime(Mathf.RoundToInt(-carVelocity.magnitude / _maxSpeed * 30f));          // max 30 sec time deduction
+            }
         }
     }
     void ControlVibrations()

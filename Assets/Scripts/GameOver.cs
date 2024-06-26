@@ -22,6 +22,7 @@ public class GameOver : MonoBehaviour
             yield return null;
         }
         score.text = finalScore.ToString();
+        Debug.Log(finalScore);
     }
     void SCount()
     {

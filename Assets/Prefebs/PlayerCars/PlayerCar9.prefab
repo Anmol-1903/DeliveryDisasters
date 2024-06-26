@@ -1118,8 +1118,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.4618273, y: 1.4550474, z: 5.336191}
-  m_Center: {x: 0, y: 0.91634905, z: 0.08795643}
+  m_Size: {x: 2.4618273, y: 1.3801341, z: 5.3893957}
+  m_Center: {x: 0, y: 0.9538057, z: 0.1145587}
 --- !u!114 &6432263395422954359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,27 +1404,27 @@ WheelCollider:
   m_GameObject: {fileID: 1024649891738745506}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 1.15
+  m_Radius: 0.95
   m_SuspensionSpring:
-    spring: 35000
-    damper: 20000
-    targetPosition: 0.4
-  m_SuspensionDistance: 1
+    spring: 75000
+    damper: 2000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.5
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 300
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.5
+    m_Stiffness: 5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.2
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -3542,27 +3542,27 @@ WheelCollider:
   m_GameObject: {fileID: 3619596182316680376}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 1.15
+  m_Radius: 0.95
   m_SuspensionSpring:
-    spring: 35000
-    damper: 20000
-    targetPosition: 0.4
-  m_SuspensionDistance: 1
+    spring: 75000
+    damper: 2000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.5
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 300
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.5
+    m_Stiffness: 5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.2
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -4100,27 +4100,27 @@ WheelCollider:
   m_GameObject: {fileID: 4322993260988477696}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 1.15
+  m_Radius: 0.95
   m_SuspensionSpring:
-    spring: 35000
-    damper: 20000
-    targetPosition: 0.4
-  m_SuspensionDistance: 1
+    spring: 75000
+    damper: 2000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.5
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 300
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.5
+    m_Stiffness: 5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.2
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
@@ -6319,27 +6319,27 @@ WheelCollider:
   m_GameObject: {fileID: 6387989060731163610}
   serializedVersion: 2
   m_Center: {x: 0, y: 0, z: 0}
-  m_Radius: 1.15
+  m_Radius: 0.95
   m_SuspensionSpring:
-    spring: 35000
-    damper: 20000
-    targetPosition: 0.4
-  m_SuspensionDistance: 1
+    spring: 75000
+    damper: 2000
+    targetPosition: 0.5
+  m_SuspensionDistance: 0.5
   m_ForceAppPointDistance: 0
-  m_Mass: 20
-  m_WheelDampingRate: 0.25
+  m_Mass: 300
+  m_WheelDampingRate: 0.5
   m_ForwardFriction:
-    m_ExtremumSlip: 0.8
-    m_ExtremumValue: 1
+    m_ExtremumSlip: 0.6
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1.5
+    m_Stiffness: 5
   m_SidewaysFriction:
     m_ExtremumSlip: 0.6
-    m_ExtremumValue: 1
+    m_ExtremumValue: 2
     m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
-    m_Stiffness: 1.2
+    m_AsymptoteValue: 0.55
+    m_Stiffness: 1.5
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 65
